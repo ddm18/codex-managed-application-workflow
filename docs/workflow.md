@@ -13,9 +13,9 @@ hide footbox
 autonumber "<font color=white><b>#</b></font>"
 
 actor "<color:white>user</color>" as U
-control "<color:cyan><&terminal></color>\n<color:white>Codex</color>" as C #101721
-collections "<color:white>Job, Profile</color>\n<color:white>and CV Stores</color>" as S #101721
-boundary "<color:white>Browser / ATS</color>" as B #101721
+participant "<img:https://raw.githubusercontent.com/ddm18/codex-managed-application-workflow/main/docs/assets/codex-app-icon.png{scale=0.42}>\n<color:white>Codex</color>" as C #101721
+participant "<color:white>Job / Profile / CV</color>\n<color:white>Evidence Stores</color>" as S #101721
+participant "<color:white>Browser / ATS</color>\n<color:white>Application Flow</color>" as B #101721
 
 C -> S: <color:white>Find role and read reusable evidence</color>
 C -> S: <color:white>Create job workspace</color>\n<color:white>and tailor CV to job</color>
