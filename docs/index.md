@@ -1,17 +1,12 @@
 # Codex-Managed Application Workflow
 
-!!! abstract "What this site is for"
-    This documentation describes a human-approved workflow that discovers
-    relevant roles, reorganizes a role-specific LaTeX CV, prepares application
-    data, and submits applications through Codex only after explicit approval.
-
 > CV submitted through a personal Codex workflow after human approval, with
 > automated job discovery, CV reorganization and application submission.
 
-The workflow is designed as an engineering system rather than a generic resume
-generator. It keeps profile evidence, private reusable application-form data,
-job context, CV source files, application notes, local PDF previews and
-submission guardrails in one repeatable process.
+This site documents the engineering system behind that line: Codex finds
+relevant roles, tailors the LaTeX CV, prepares the browser application, and
+submits only after explicit approval while keeping evidence, profile data, job
+notes, PDF previews and guardrails in one repeatable process.
 
 ## Workflow At A Glance
 
