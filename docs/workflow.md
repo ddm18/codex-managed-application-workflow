@@ -1,5 +1,32 @@
 # Workflow
 
+The workflow treats an application as a small delivery pipeline: intake the
+role, reason about fit, reshape the CV, verify the artifact, prepare the
+application flow, then submit only after approval.
+
+## Execution Sequence
+
+```mermaid
+sequenceDiagram
+  autonumber
+  participant D as Dario
+  participant C as Codex
+  participant S as Job, Profile and CV Stores
+  participant B as Browser / ATS
+
+  C->>S: Find role and read reusable evidence
+  C->>S: Create job workspace and reorganize CV
+  C->>C: Compile PDF and inspect preview
+  C->>B: Fill application flow with approved data
+  C->>D: Request final submission approval
+  D-->>C: Approve or request revision
+  alt Approved
+    C->>B: Submit application
+  else Revision requested
+    C->>C: Revise CV, answers or attachments
+  end
+```
+
 ## 1. Job Intake
 
 The process starts from a job posting, usually found through external
@@ -30,7 +57,7 @@ notes and consent rules progressively across applications. It is used to
 prefill forms only after explicit confirmation, especially when data would be
 sent to external ATS pages.
 
-This separates two concerns:
+This separates three concerns:
 
 - the CV remains concise and role-specific;
 - the profile inventory remains broad and reusable;

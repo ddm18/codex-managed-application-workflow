@@ -2,12 +2,46 @@ site_name: Codex-Managed Application Workflow
 site_description: Human-approved CV tailoring and application submission workflow managed through Codex.
 site_author: Dario Di Mambro
 site_url: https://ddm18.github.io/codex-managed-application-workflow/
+
 repo_url: https://github.com/ddm18/codex-managed-application-workflow
 repo_name: ddm18/codex-managed-application-workflow
+edit_uri: edit/main/docs/
 
 theme:
-  name: readthedocs
-  highlightjs: true
+  name: material
+  language: en
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - content.code.copy
+    - content.action.edit
+    - search.highlight
+    - search.share
+  icon:
+    repo: fontawesome/brands/github
+  font:
+    text: Inter
+    code: JetBrains Mono
+  palette:
+    - scheme: slate
+      primary: black
+      accent: red
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js
+  - javascripts/mermaid.js
+
+plugins:
+  - search
+  - git-revision-date-localized:
+      enable_creation_date: true
+  - minify:
+      minify_html: true
 
 nav:
   - Home: index.md
@@ -18,5 +52,28 @@ nav:
 
 markdown_extensions:
   - admonition
+  - attr_list
+  - tables
+  - plantuml_markdown:
+      format: svg_inline
+      remove_inline_svg_size: true
+      servers:
+        - https://www.plantuml.com/plantuml
+      base_dir: .
+      config: docs/plantuml-config.puml
   - toc:
       permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true

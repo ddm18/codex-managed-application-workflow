@@ -1,7 +1,33 @@
 # Guardrails
 
 The workflow is designed to increase leverage without sacrificing truthfulness
-or control.
+or control. The important boundary is simple: Codex can organize, draft,
+compile, inspect and execute the application flow, but the final submission is
+human-approved.
+
+## Approval Boundary
+
+```plantuml
+@startuml
+start
+:Inspect role inputs;
+:Tailor CV / answers;
+:Review PDF + form state;
+
+if (Next action submits data?) then (yes)
+  :Ask Dario for explicit approval;
+  if (Approved?) then (yes)
+    :Submit through Codex-managed browser flow;
+  else (no)
+    :Revise CV, answers or attachments;
+  endif
+else (no)
+  :Continue preparation and inspection;
+endif
+
+stop
+@enduml
+```
 
 ## Claim Integrity
 

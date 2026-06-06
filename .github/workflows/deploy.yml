@@ -27,7 +27,7 @@ jobs:
           python-version: "3.13"
 
       - name: Install MkDocs
-        run: pip install mkdocs
+        run: pip install -r docs/requirements.txt
 
       - name: Build
         run: mkdocs build --strict

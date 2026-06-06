@@ -1,7 +1,36 @@
 # Architecture
 
-The workflow is intentionally file-first. Most state lives in Markdown or LaTeX,
-so future Codex sessions can inspect and continue the process.
+The workflow is intentionally file-first. Most state lives in Markdown or
+LaTeX, so future Codex sessions can inspect and continue the process without
+needing a hidden application database.
+
+## System Shape
+
+```plantuml
+@startuml
+left to right direction
+scale 0.92
+
+cloud "External Job\nIntegrations" as JOBS
+database "Profile + Private\nApplication Data" as DATA
+component "Codex Orchestrator" as CODEX
+storage "Job Workspace" as APPS
+storage "LaTeX CV Source" as CV
+component "TinyTeX\nPDF Preview" as TEX
+component "Browser / ATS" as BROWSER
+cloud "Public MkDocs\nSite" as DOCS
+
+JOBS --> CODEX
+DATA --> CODEX
+CODEX --> APPS
+CODEX --> CV
+CV --> TEX
+TEX --> CODEX
+CODEX --> BROWSER
+BROWSER --> CODEX
+CODEX --> DOCS
+@enduml
+```
 
 ## Main Components
 
@@ -11,7 +40,7 @@ so future Codex sessions can inspect and continue the process.
 | `applications/profile-inventory.md` | Reusable evidence inventory for skills, projects and positioning. |
 | `applications/application-profile.md` | Private reusable application-form information, personal details and form guardrails. |
 | `applications/<job>/` | Job-specific notes, fit analysis and tailoring plans. |
-| `codex-managed-application-workflow/` | Public-style documentation of the workflow itself. |
+| `codex-managed-application-workflow/` | Public documentation of the workflow itself. |
 
 ## External Services And Tools
 

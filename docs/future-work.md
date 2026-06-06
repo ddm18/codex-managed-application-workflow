@@ -1,5 +1,9 @@
 # Future Work
 
+The current workflow is already useful for role discovery, CV tailoring and
+human-approved submission. Future work should deepen the system without
+weakening its approval boundary.
+
 ## Role-Specific CV Tracks
 
 The current base CV is strongest for data/platform/backend roles. Future
@@ -25,10 +29,10 @@ Future AI-focused variants may include:
 - reusable agent skills and workflows;
 - enterprise AI workflow delivery.
 
-## Workflow Publication
+## Portfolio Publication
 
-This MkDocs site can later be published as a portfolio case study. Before
-publication, review:
+This MkDocs site can evolve into a portfolio case study. Before expanding it
+further, review:
 
 - whether any private information appears in examples;
 - whether application workflow wording sounds professional rather than spammy;

@@ -1,9 +1,9 @@
 # Codex-Managed Application Workflow
 
-This documentation describes the workflow used to discover relevant roles
-through external integrations, reorganize a role-specific CV, prepare the
-application and submit it through Codex, with explicit human approval before
-any submission.
+!!! abstract "What this site is for"
+    This documentation describes a human-approved workflow that discovers
+    relevant roles, reorganizes a role-specific LaTeX CV, prepares application
+    data, and submits applications through Codex only after explicit approval.
 
 > CV submitted through a personal Codex workflow after human approval, with
 > automated job discovery, CV reorganization and application submission.
@@ -13,7 +13,26 @@ generator. It keeps profile evidence, private reusable application-form data,
 job context, CV source files, application notes, local PDF previews and
 submission guardrails in one repeatable process.
 
-## Purpose
+## Workflow At A Glance
+
+```mermaid
+flowchart TD
+  A[External job integrations] --> B[Relevant role]
+  B --> C[Application workspace]
+  C --> D[Fit analysis]
+  D --> E[Evidence and private profile lookup]
+  E --> F[Role-specific LaTeX CV reorganization]
+  F --> G[Local PDF compile and preview]
+  G --> H[Browser application flow]
+  H --> I{Human approval}
+  I -- approved --> J[Codex-executed submission]
+  I -- revise --> D
+
+  K[Guardrails] -. constrain .-> F
+  K -. constrain .-> H
+```
+
+## Why It Exists
 
 The objective is to make job applications faster without making them less
 truthful. The workflow helps:
@@ -41,3 +60,17 @@ The current implementation supports:
 
 It is not intended to fabricate claims, hide gaps, or submit applications
 without review.
+
+## Start Here
+
+If you want to understand the system quickly, read the pages in this order:
+
+1. [Workflow](workflow.md)
+2. [Architecture](architecture.md)
+3. [Guardrails](guardrails.md)
+4. [Future Work](future-work.md)
+
+!!! tip "Reading mode"
+    The workflow page explains the operational path. The architecture page
+    explains the file and tool boundaries. The guardrails page explains what
+    Codex is allowed to do, and where human approval becomes mandatory.
