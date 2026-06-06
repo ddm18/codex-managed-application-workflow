@@ -264,10 +264,6 @@ body {
   hyphens: none;
 }
 
-.diagram-svg-icon {
-  pointer-events: none;
-}
-
 .workflow-arrow {
   align-self: center;
   flex: 0 0 1.25rem;

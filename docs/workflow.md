@@ -10,7 +10,7 @@ application flow, then submit only after approval.
 sequenceDiagram
   autonumber
   actor U as user
-  participant C as [codex] Codex
+  actor C as Codex
   participant S as Job, Profile and CV Stores
   participant B as Browser / ATS
 
