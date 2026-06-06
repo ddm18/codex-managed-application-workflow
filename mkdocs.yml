@@ -32,10 +32,6 @@ theme:
 extra_css:
   - stylesheets/extra-20260606-diagram-icons.css
 
-extra_javascript:
-  - https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js
-  - javascripts/mermaid-20260606-diagram-icons.js
-
 plugins:
   - search
   - git-revision-date-localized:
@@ -68,11 +64,7 @@ markdown_extensions:
       anchor_linenums: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.tasklist:

@@ -6,25 +6,30 @@ application flow, then submit only after approval.
 
 ## Execution Sequence
 
-```mermaid
-sequenceDiagram
-  autonumber
-  actor U as user
-  actor C as Codex
-  participant S as Job, Profile and CV Stores
-  participant B as Browser / ATS
+```plantuml
+@startuml
+scale 0.80
+hide footbox
+autonumber "<font color=white><b>#</b></font>"
 
-  C->>S: Find role and read reusable evidence
-  C->>S: Create job workspace and tailor CV to job
-  C->>C: Compile PDF and inspect preview
-  C->>B: Fill application flow with approved data
-  C->>U: Request final submission approval
-  U-->>C: Approve or request revision
-  alt Approved
-    C->>B: Submit application
-  else Revision requested
-    C->>C: Revise CV, answers or attachments
-  end
+actor "<color:white>user</color>" as U
+control "<color:cyan><&terminal></color>\n<color:white>Codex</color>" as C #101721
+collections "<color:white>Job, Profile</color>\n<color:white>and CV Stores</color>" as S #101721
+boundary "<color:white>Browser / ATS</color>" as B #101721
+
+C -> S: <color:white>Find role and read reusable evidence</color>
+C -> S: <color:white>Create job workspace</color>\n<color:white>and tailor CV to job</color>
+C -> C: <color:white>Compile PDF and inspect preview</color>
+C -> B: <color:white>Fill application flow</color>\n<color:white>with approved data</color>
+C -> U: <color:white>Request final submission approval</color>
+U --> C: <color:white>Approve or request revision</color>
+
+alt Approved
+  C -> B: <color:white>Submit application</color>
+else Revision requested
+  C -> C: <color:white>Revise CV, answers</color>\n<color:white>or attachments</color>
+end
+@enduml
 ```
 
 ## 1. Job Intake

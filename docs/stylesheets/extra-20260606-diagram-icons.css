@@ -167,8 +167,7 @@ body {
   border-radius: 0.35rem;
 }
 
-.md-typeset .uml,
-.md-typeset .mermaid {
+.md-typeset .uml {
   width: 100%;
   overflow-x: auto;
   margin: 1.35rem 0 1.8rem;
@@ -183,8 +182,7 @@ body {
   box-shadow: 0 0 34px rgba(226, 29, 63, 0.12);
 }
 
-.md-typeset .uml svg,
-.md-typeset .mermaid svg {
+.md-typeset .uml svg {
   width: 100%;
   max-width: none;
   height: auto;
