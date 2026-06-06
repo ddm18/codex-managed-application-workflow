@@ -30,7 +30,7 @@ theme:
       accent: red
 
 extra_css:
-  - stylesheets/extra-20260606-flow.css
+  - stylesheets/extra-20260606-real-icons.css
 
 extra_javascript:
   - https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js

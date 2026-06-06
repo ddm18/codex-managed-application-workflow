@@ -191,39 +191,134 @@ body {
   display: block;
 }
 
-.md-typeset .mermaid .wf-node {
-  display: inline-flex;
+.workflow-strip {
+  display: flex;
+  align-items: stretch;
+  gap: 0.58rem;
+  width: 100%;
+  margin: 1.35rem 0 1.8rem;
+  padding: 1.05rem;
+  background:
+    linear-gradient(rgba(51, 230, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(226, 29, 63, 0.035) 1px, transparent 1px),
+    rgba(9, 13, 20, 0.94);
+  background-size: 28px 28px, 28px 28px, auto;
+  border: 1px solid rgba(226, 29, 63, 0.42);
+  border-radius: 0.45rem;
+  box-shadow: 0 0 34px rgba(226, 29, 63, 0.12);
+}
+
+.workflow-step {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 6.15rem;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 0.48rem;
-  white-space: nowrap;
+  justify-content: center;
+  gap: 0.26rem;
+  text-align: center;
+  padding: 0.68rem 0.62rem;
+  background: linear-gradient(135deg, rgba(16, 23, 33, 0.98), rgba(11, 17, 26, 0.9));
+  border: 1px solid rgba(51, 230, 255, 0.6);
+  border-radius: 0.35rem;
+  box-shadow: inset 0 0 18px rgba(51, 230, 255, 0.045);
 }
 
-.md-typeset .mermaid .wf-node::before {
-  content: "";
-  flex: 0 0 auto;
-  width: 1.05rem;
-  height: 1.05rem;
-  display: inline-block;
+.workflow-step--user {
+  background: linear-gradient(135deg, rgba(32, 16, 22, 0.98), rgba(16, 23, 33, 0.88));
+  border-color: rgba(226, 29, 63, 0.72);
+  box-shadow: inset 0 0 18px rgba(226, 29, 63, 0.07);
 }
 
-.md-typeset .mermaid .wf-node--codex::before {
-  background:
-    linear-gradient(90deg, rgba(9, 13, 20, 0) 43%, rgba(9, 13, 20, 0.82) 43% 57%, rgba(9, 13, 20, 0) 57%),
-    linear-gradient(0deg, rgba(9, 13, 20, 0) 43%, rgba(9, 13, 20, 0.82) 43% 57%, rgba(9, 13, 20, 0) 57%),
-    linear-gradient(135deg, var(--codex-cyan), var(--codex-red));
-  border-radius: 0.22rem;
-  clip-path: polygon(50% 0, 92% 25%, 92% 75%, 50% 100%, 8% 75%, 8% 25%);
-  filter: drop-shadow(0 0 0.35rem rgba(51, 230, 255, 0.42));
+.workflow-step__icon {
+  width: 2.15rem;
+  height: 2.15rem;
+  object-fit: contain;
+  border-radius: 0.45rem;
+  filter: drop-shadow(0 0 0.38rem rgba(51, 230, 255, 0.28));
 }
 
-.md-typeset .mermaid .wf-node--user::before {
-  background:
-    radial-gradient(circle at 50% 31%, var(--codex-text) 0 22%, transparent 23%),
-    radial-gradient(ellipse at 50% 82%, var(--codex-text) 0 34%, transparent 35%),
-    linear-gradient(135deg, rgba(140, 150, 168, 0.72), rgba(226, 29, 63, 0.86));
-  border: 1px solid rgba(245, 247, 250, 0.34);
+.workflow-step--user .workflow-step__icon {
   border-radius: 50%;
-  box-shadow: 0 0 0.4rem rgba(226, 29, 63, 0.28);
+  filter: drop-shadow(0 0 0.42rem rgba(226, 29, 63, 0.3));
+}
+
+.workflow-step__actor {
+  color: var(--codex-muted);
+  font-size: 0.56rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.workflow-step strong {
+  color: var(--codex-text);
+  font-size: 0.74rem;
+  font-weight: 760;
+  line-height: 1.15;
+  letter-spacing: 0;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+}
+
+.workflow-arrow {
+  align-self: center;
+  flex: 0 0 1.25rem;
+  height: 1px;
+  position: relative;
+  background: linear-gradient(90deg, var(--codex-red), var(--codex-cyan));
+  box-shadow: 0 0 0.5rem rgba(226, 29, 63, 0.34);
+}
+
+.workflow-arrow::after {
+  content: "";
+  position: absolute;
+  right: -0.06rem;
+  top: 50%;
+  width: 0.42rem;
+  height: 0.42rem;
+  border-top: 1px solid var(--codex-cyan);
+  border-right: 1px solid var(--codex-cyan);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+@media screen and (max-width: 1220px) {
+  .workflow-strip {
+    flex-wrap: wrap;
+  }
+
+  .workflow-step {
+    flex-basis: calc(50% - 1.6rem);
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .workflow-strip {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .workflow-step {
+    min-height: 5.4rem;
+  }
+
+  .workflow-arrow {
+    justify-self: center;
+    width: 1px;
+    height: 1.5rem;
+    background: linear-gradient(180deg, var(--codex-red), var(--codex-cyan));
+  }
+
+  .workflow-arrow::after {
+    right: auto;
+    top: auto;
+    left: 50%;
+    bottom: -0.04rem;
+    transform: translateX(-50%) rotate(135deg);
+  }
 }
 
 .md-typeset .uml svg {

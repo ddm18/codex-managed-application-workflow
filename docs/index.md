@@ -15,18 +15,37 @@ submission guardrails in one repeatable process.
 
 ## Workflow At A Glance
 
-```mermaid
-flowchart LR
-  A["<span class='wf-node wf-node--codex'>Find interesting jobs</span>"] --> B["<span class='wf-node wf-node--codex'>Tailor CV to role</span>"]
-  B --> C["<span class='wf-node wf-node--codex'>Prepare application</span>"]
-  C --> D["<span class='wf-node wf-node--user'>Review and approve</span>"]
-  D --> E["<span class='wf-node wf-node--codex'>Submit application</span>"]
-
-  class A,B,C,E codexAction
-  class D userAction
-  classDef codexAction fill:#101721,stroke:#33e6ff,color:#f5f7fa;
-  classDef userAction fill:#201016,stroke:#e21d3f,color:#f5f7fa;
-```
+<div class="workflow-strip" role="img" aria-label="Codex-managed job application workflow">
+  <div class="workflow-step workflow-step--codex">
+    <img class="workflow-step__icon" src="assets/codex-app-icon.png" alt="" />
+    <span class="workflow-step__actor">Codex</span>
+    <strong>Find interesting jobs</strong>
+  </div>
+  <span class="workflow-arrow" aria-hidden="true"></span>
+  <div class="workflow-step workflow-step--codex">
+    <img class="workflow-step__icon" src="assets/codex-app-icon.png" alt="" />
+    <span class="workflow-step__actor">Codex</span>
+    <strong>Tailor CV to role</strong>
+  </div>
+  <span class="workflow-arrow" aria-hidden="true"></span>
+  <div class="workflow-step workflow-step--codex">
+    <img class="workflow-step__icon" src="assets/codex-app-icon.png" alt="" />
+    <span class="workflow-step__actor">Codex</span>
+    <strong>Prepare application</strong>
+  </div>
+  <span class="workflow-arrow" aria-hidden="true"></span>
+  <div class="workflow-step workflow-step--user">
+    <img class="workflow-step__icon" src="assets/user-icon.svg" alt="" />
+    <span class="workflow-step__actor">user</span>
+    <strong>Review and approve</strong>
+  </div>
+  <span class="workflow-arrow" aria-hidden="true"></span>
+  <div class="workflow-step workflow-step--codex">
+    <img class="workflow-step__icon" src="assets/codex-app-icon.png" alt="" />
+    <span class="workflow-step__actor">Codex</span>
+    <strong>Submit application</strong>
+  </div>
+</div>
 
 ## Why It Exists
 
