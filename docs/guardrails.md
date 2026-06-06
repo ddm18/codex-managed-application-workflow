@@ -9,6 +9,7 @@ human-approved.
 
 ```plantuml
 @startuml
+scale 0.72
 start
 :Inspect role inputs;
 :Tailor CV / answers;
@@ -28,6 +29,7 @@ endif
 stop
 @enduml
 ```
+{: .guardrail-diagram }
 
 ## Claim Integrity
 

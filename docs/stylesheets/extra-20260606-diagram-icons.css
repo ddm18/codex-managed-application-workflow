@@ -199,6 +199,16 @@ body {
   margin-right: auto;
 }
 
+.md-typeset .guardrail-diagram {
+  display: flex;
+  justify-content: center;
+}
+
+.md-typeset .guardrail-diagram svg.uml,
+.md-typeset svg.uml.guardrail-diagram {
+  width: min(100%, 760px) !important;
+}
+
 .workflow-strip {
   display: flex;
   align-items: stretch;
