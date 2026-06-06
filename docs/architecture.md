@@ -20,14 +20,15 @@ so future Codex sessions can inspect and continue the process.
 | Overleaf | Remote LaTeX editing and PDF rendering when needed. |
 | GitHub | Versioned CV/project repositories. |
 | TinyTeX | Local LaTeX compilation and PDF preview. |
-| Trackly | Job discovery, saved jobs and job metadata. |
+| Trackly | External job discovery integration, saved jobs and job metadata. |
 | Codex | File editing, review loops, application preparation, browser-assisted submission and workflow orchestration. |
 | Browser | Form inspection, form filling and human-approved application submission. |
 
 ## Data Flow
 
 ```text
-job posting
+external job integrations
+  -> relevant job posting
   -> application folder
   -> fit analysis
   -> profile evidence lookup

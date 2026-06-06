@@ -1,11 +1,12 @@
 # Codex-Managed Application Workflow
 
-This documentation describes the workflow used to reorganize a role-specific CV
-and submit job applications through Codex, with explicit human approval before
+This documentation describes the workflow used to discover relevant roles
+through external integrations, reorganize a role-specific CV, prepare the
+application and submit it through Codex, with explicit human approval before
 any submission.
 
-> This CV was reorganized for this role and submitted through a personal
-> Codex-managed workflow, with human approval before submission. See projects.
+> External job integrations find relevant roles; Codex reorganizes the CV,
+> prepares the application and asks for approval before it submits.
 
 The workflow is designed as an engineering system rather than a generic resume
 generator. It keeps profile evidence, private reusable application-form data,
@@ -18,6 +19,7 @@ The objective is to make job applications faster without making them less
 truthful. The workflow helps:
 
 - tailor a LaTeX CV to a specific job description;
+- use external job-discovery integrations to find relevant roles;
 - preserve evidence-backed claims;
 - reuse progressively accumulated private application data for forms;
 - track job-specific reasoning and fit analysis;
@@ -33,7 +35,7 @@ The current implementation supports:
 - local PDF compilation through TinyTeX;
 - structured profile inventory, private application profile and application
   notes;
-- Trackly-assisted job discovery and job metadata;
+- external job-discovery integrations, currently including Trackly;
 - browser-assisted form preparation and submission;
 - explicit human approval before any submission.
 

@@ -2,9 +2,10 @@
 
 ## 1. Job Intake
 
-The process starts from a job posting, usually found through Trackly or opened
-directly in the browser. The role is captured in an application folder together
-with the job description, fit analysis and notes.
+The process starts from a job posting, usually found through external
+job-discovery integrations such as Trackly or opened directly in the browser.
+The role is captured in an application folder together with the job
+description, fit analysis and notes.
 
 Typical folder shape:
 
@@ -75,7 +76,8 @@ xelatex -interaction=nonstopmode -halt-on-error resume.tex
 
 Application forms can be prepared with Codex using the browser, and the final
 submission can also be executed through the Codex-managed workflow. Submission
-is still a separate approval step.
+is still a separate approval step after the CV, form data and attachments have
+been prepared.
 
 Codex may help map fields, reuse approved personal data from the private
 application profile, prepare answers, attach the CV and identify required
