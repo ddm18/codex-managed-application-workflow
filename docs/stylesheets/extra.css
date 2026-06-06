@@ -57,7 +57,19 @@ body {
   }
 
   .md-main__inner {
-    grid-template-columns: 18rem minmax(0, 1fr) 18rem;
+    grid-template-columns: minmax(0, 1fr) 18rem;
+  }
+
+  .md-sidebar--primary {
+    display: none;
+  }
+
+  .md-content {
+    grid-column: 1;
+  }
+
+  .md-sidebar--secondary {
+    grid-column: 2;
   }
 }
 
@@ -67,7 +79,7 @@ body {
   }
 
   .md-main__inner {
-    grid-template-columns: 19rem minmax(0, 1fr) 19rem;
+    grid-template-columns: minmax(0, 1fr) 19rem;
   }
 }
 

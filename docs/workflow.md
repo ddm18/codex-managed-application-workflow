@@ -9,7 +9,7 @@ application flow, then submit only after approval.
 ```mermaid
 sequenceDiagram
   autonumber
-  participant D as Dario
+  participant U as user
   participant C as Codex
   participant S as Job, Profile and CV Stores
   participant B as Browser / ATS
@@ -18,8 +18,8 @@ sequenceDiagram
   C->>S: Create job workspace and reorganize CV
   C->>C: Compile PDF and inspect preview
   C->>B: Fill application flow with approved data
-  C->>D: Request final submission approval
-  D-->>C: Approve or request revision
+  C->>U: Request final submission approval
+  U-->>C: Approve or request revision
   alt Approved
     C->>B: Submit application
   else Revision requested
@@ -108,5 +108,5 @@ been reviewed.
 
 Codex may help map fields, reuse approved personal data from the private
 application profile, prepare answers, attach the CV and identify required
-information. It must not click final submit/apply/confirm unless Dario
+information. It must not click final submit/apply/confirm unless the user
 explicitly approves that final action.

@@ -1,10 +1,10 @@
 site_name: Codex-Managed Application Workflow
 site_description: Human-approved CV tailoring and application submission workflow managed through Codex.
-site_author: Dario Di Mambro
+site_author: user
 site_url: https://ddm18.github.io/codex-managed-application-workflow/
 
 repo_url: https://github.com/ddm18/codex-managed-application-workflow
-repo_name: ddm18/codex-managed-application-workflow
+repo_name: workflow repository
 edit_uri: edit/main/docs/
 
 theme:

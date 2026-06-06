@@ -15,7 +15,7 @@ start
 :Review PDF + form state;
 
 if (Next action submits data?) then (yes)
-  :Ask Dario for explicit approval;
+  :Ask user for explicit approval;
   if (Approved?) then (yes)
     :Submit through Codex-managed browser flow;
   else (no)
@@ -36,7 +36,7 @@ Every CV claim should map back to one of:
 - work evidence;
 - project evidence;
 - education evidence;
-- explicit profile notes from Dario.
+- explicit profile notes from the user.
 
 If a skill is not yet backed by enough evidence, it can stay in the profile
 inventory but should not become a base-CV headline.

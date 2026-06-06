@@ -17,7 +17,7 @@ variants can specialize further:
 
 ## AI Engineering Evidence
 
-Dario is beginning work in AI engineering contexts at Quantyca. That evidence
+The user is beginning work in AI engineering contexts at Quantyca. That evidence
 should stay in the profile inventory until it becomes concrete enough for the
 CV.
 
