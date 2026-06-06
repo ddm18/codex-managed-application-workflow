@@ -16,20 +16,16 @@ submission guardrails in one repeatable process.
 ## Workflow At A Glance
 
 ```mermaid
-flowchart TD
-  A[External job integrations] --> B[Relevant role]
-  B --> C[Application workspace]
-  C --> D[Fit analysis]
-  D --> E[Evidence and private profile lookup]
-  E --> F[Role-specific LaTeX CV reorganization]
-  F --> G[Local PDF compile and preview]
-  G --> H[Browser application flow]
-  H --> I{Human approval}
-  I -- approved --> J[Codex-executed submission]
-  I -- revise --> D
+flowchart LR
+  A["<span class='wf-node wf-node--codex'>Find interesting jobs</span>"] --> B["<span class='wf-node wf-node--codex'>Tailor CV to role</span>"]
+  B --> C["<span class='wf-node wf-node--codex'>Prepare application</span>"]
+  C --> D["<span class='wf-node wf-node--user'>Review and approve</span>"]
+  D --> E["<span class='wf-node wf-node--codex'>Submit application</span>"]
 
-  K[Guardrails] -. constrain .-> F
-  K -. constrain .-> H
+  class A,B,C,E codexAction
+  class D userAction
+  classDef codexAction fill:#101721,stroke:#33e6ff,color:#f5f7fa;
+  classDef userAction fill:#201016,stroke:#e21d3f,color:#f5f7fa;
 ```
 
 ## Why It Exists

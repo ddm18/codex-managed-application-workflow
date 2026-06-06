@@ -4,8 +4,8 @@ const codexMermaidConfig = {
   flowchart: {
     curve: "basis",
     htmlLabels: true,
-    nodeSpacing: 48,
-    rankSpacing: 58,
+    nodeSpacing: 36,
+    rankSpacing: 40,
   },
   themeVariables: {
     background: "#090d14",
@@ -34,7 +34,7 @@ const codexMermaidConfig = {
     noteBkgColor: "#201016",
     noteBorderColor: "#e21d3f",
     noteTextColor: "#f5f7fa",
-    fontSize: "17px",
+    fontSize: "18px",
   },
 };
 
