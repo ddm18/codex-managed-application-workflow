@@ -1,7 +1,8 @@
 # Codex-Managed Application Workflow
 
 > CV submitted through a personal Codex workflow after human approval, with
-> automated job discovery, CV reorganization and application submission.
+> automated job discovery, CV reorganization and application submission. See
+> projects for details.
 
 This site documents the engineering system behind that line: Codex finds
 relevant roles, tailors the LaTeX CV, prepares the browser application, and

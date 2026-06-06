@@ -85,3 +85,9 @@ personal Codex-managed process, but it should also state that submission
 required human approval.
 
 That distinction matters.
+
+The fixed base-CV line is:
+
+> CV submitted through a personal Codex workflow after human approval, with
+> automated job discovery, CV reorganization and application submission. See
+> projects for details.

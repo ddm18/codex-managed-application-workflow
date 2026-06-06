@@ -31,11 +31,11 @@ Future AI-focused variants may include:
 
 ## Portfolio Publication
 
-This MkDocs site can evolve into a portfolio case study. Before expanding it
-further, review:
+This MkDocs site is now a public portfolio case study for the workflow. Before
+expanding it further, review:
 
 - whether any private information appears in examples;
-- whether application workflow wording sounds professional rather than spammy;
+- whether new wording stays consistent with the fixed CV line and guardrails;
 - whether the site links to the correct public repositories and docs;
 - whether screenshots or generated artifacts reveal personal data.
 
