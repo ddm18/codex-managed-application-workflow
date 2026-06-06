@@ -9,8 +9,8 @@ application flow, then submit only after approval.
 ```mermaid
 sequenceDiagram
   autonumber
-  participant U as user
-  participant C as Codex
+  actor U as user
+  participant C as [codex] Codex
   participant S as Job, Profile and CV Stores
   participant B as Browser / ATS
 
