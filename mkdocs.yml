@@ -1,0 +1,19 @@
+site_name: Codex-Managed Application Workflow
+site_description: Human-approved CV tailoring and application workflow managed through Codex.
+site_author: Dario Di Mambro
+
+theme:
+  name: readthedocs
+  highlightjs: true
+
+nav:
+  - Home: index.md
+  - Workflow: workflow.md
+  - Architecture: architecture.md
+  - Guardrails: guardrails.md
+  - Future Work: future-work.md
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
