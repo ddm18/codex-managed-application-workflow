@@ -6,58 +6,31 @@ needing a hidden application database.
 
 ## System Shape
 
-<div class="architecture-map" role="img" aria-label="Codex-managed application workflow architecture">
-  <div class="architecture-column">
-    <div class="architecture-node">
-      <svg class="architecture-node__icon" aria-hidden="true"><use href="../assets/architecture-icons.svg#jobs"></use></svg>
-      <strong>External Job Integrations</strong>
-      <span>Role discovery and job metadata</span>
-    </div>
-    <div class="architecture-node">
-      <svg class="architecture-node__icon" aria-hidden="true"><use href="../assets/architecture-icons.svg#data"></use></svg>
-      <strong>Profile + Private Application Data</strong>
-      <span>Evidence, preferences and reusable form data</span>
-    </div>
-  </div>
+```plantuml
+@startuml
+left to right direction
+scale 0.92
 
-  <span class="architecture-arrow" aria-hidden="true"></span>
+cloud "External Job\nIntegrations" as JOBS
+database "Profile + Private\nApplication Data" as DATA
+component "Codex Orchestrator" as CODEX
+storage "Job Workspace" as APPS
+storage "LaTeX CV Source" as CV
+component "TinyTeX\nPDF Preview" as TEX
+component "Browser / ATS" as BROWSER
+cloud "Public MkDocs\nSite" as DOCS
 
-  <div class="architecture-node architecture-node--codex">
-    <img class="architecture-node__icon architecture-node__icon--image" src="../assets/codex-app-icon.png" alt="" />
-    <strong>Codex Orchestrator</strong>
-    <span>Coordinates edits, previews, browser actions and approvals</span>
-  </div>
-
-  <span class="architecture-arrow" aria-hidden="true"></span>
-
-  <div class="architecture-column architecture-column--wide">
-    <div class="architecture-node">
-      <svg class="architecture-node__icon" aria-hidden="true"><use href="../assets/architecture-icons.svg#workspace"></use></svg>
-      <strong>Job Workspace</strong>
-      <span>Job notes, fit analysis and tailoring plan</span>
-    </div>
-    <div class="architecture-node">
-      <svg class="architecture-node__icon" aria-hidden="true"><use href="../assets/architecture-icons.svg#latex"></use></svg>
-      <strong>LaTeX CV Source</strong>
-      <span>Git-backed CV source compatible with Overleaf</span>
-    </div>
-    <div class="architecture-node">
-      <svg class="architecture-node__icon" aria-hidden="true"><use href="../assets/architecture-icons.svg#pdf"></use></svg>
-      <strong>TinyTeX PDF Preview</strong>
-      <span>Local compile and visual check</span>
-    </div>
-    <div class="architecture-node">
-      <svg class="architecture-node__icon" aria-hidden="true"><use href="../assets/architecture-icons.svg#browser"></use></svg>
-      <strong>Browser / ATS</strong>
-      <span>Form filling and approved submission</span>
-    </div>
-    <div class="architecture-node">
-      <svg class="architecture-node__icon" aria-hidden="true"><use href="../assets/architecture-icons.svg#docs"></use></svg>
-      <strong>Public MkDocs Site</strong>
-      <span>Inspectable workflow documentation</span>
-    </div>
-  </div>
-</div>
+JOBS --> CODEX
+DATA --> CODEX
+CODEX --> APPS
+CODEX --> CV
+CV --> TEX
+TEX --> CODEX
+CODEX --> BROWSER
+BROWSER --> CODEX
+CODEX --> DOCS
+@enduml
+```
 
 ## Main Components
 
