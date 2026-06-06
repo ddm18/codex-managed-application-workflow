@@ -40,6 +40,8 @@ publication, review:
 Possible next steps:
 
 - generate a per-job application packet automatically;
+- keep expanding the private application profile with recurring personal data
+  and form answers;
 - keep a changelog of CV variants;
 - add a validation checklist before each submission;
 - create role-specific prompt templates;

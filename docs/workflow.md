@@ -17,16 +17,24 @@ applications/
     notes.md
 ```
 
-## 2. Evidence Lookup
+## 2. Evidence And Application Data Lookup
 
 Codex reads the reusable profile inventory before proposing CV changes. The
 inventory stores skills, projects, work evidence, preferences and guardrails
 that may not all belong in the base CV.
 
+Codex can also read a private local Markdown application profile. That file
+accumulates personal details, recurring application answers, work-authorization
+notes and consent rules progressively across applications. It is used to
+prefill forms only after explicit confirmation, especially when data would be
+sent to external ATS pages.
+
 This separates two concerns:
 
 - the CV remains concise and role-specific;
-- the profile inventory remains broad and reusable.
+- the profile inventory remains broad and reusable;
+- recurring personal/form data is stored privately instead of being rediscovered
+  for every application.
 
 ## 3. CV Tailoring
 
@@ -63,11 +71,13 @@ cd cv-overleaf/techResume-main
 xelatex -interaction=nonstopmode -halt-on-error resume.tex
 ```
 
-## 6. Application Preparation
+## 6. Application Preparation And Submission
 
-Application forms can be prepared with Codex using the browser, but submission
-is a separate step.
+Application forms can be prepared with Codex using the browser, and the final
+submission can also be executed through the Codex-managed workflow. Submission
+is still a separate approval step.
 
-Codex may help map fields, prepare answers, attach the CV and identify required
-information. It must not submit the application unless Dario explicitly
-approves that final action.
+Codex may help map fields, reuse approved personal data from the private
+application profile, prepare answers, attach the CV and identify required
+information. It must not click final submit/apply/confirm unless Dario
+explicitly approves that final action.

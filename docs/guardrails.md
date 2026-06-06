@@ -17,10 +17,17 @@ inventory but should not become a base-CV headline.
 
 ## Human Approval
 
-Submission is always human-approved. Codex can prepare, inspect, draft and
-attach, but final submission requires explicit confirmation.
+Submission is always human-approved. Codex can prepare, inspect, draft, attach
+and submit through the browser, but final submission requires explicit
+confirmation.
 
 This avoids turning the workflow into an uncontrolled application bot.
+
+## Private Application Profile
+
+Personal details and recurring form answers live in a private local Markdown
+application profile. Codex may use that file to prefill forms, but it should not
+publish the contents or transmit them to an external ATS without confirmation.
 
 ## NDA-Safe Wording
 

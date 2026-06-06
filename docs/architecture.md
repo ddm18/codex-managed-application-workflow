@@ -9,7 +9,7 @@ so future Codex sessions can inspect and continue the process.
 | --- | --- |
 | `cv-overleaf/` | Git-backed LaTeX CV source, compatible with Overleaf. |
 | `applications/profile-inventory.md` | Reusable evidence inventory for skills, projects and positioning. |
-| `applications/application-profile.md` | Reusable application-form information and form guardrails. |
+| `applications/application-profile.md` | Private reusable application-form information, personal details and form guardrails. |
 | `applications/<job>/` | Job-specific notes, fit analysis and tailoring plans. |
 | `codex-managed-application-workflow/` | Public-style documentation of the workflow itself. |
 
@@ -21,8 +21,8 @@ so future Codex sessions can inspect and continue the process.
 | GitHub | Versioned CV/project repositories. |
 | TinyTeX | Local LaTeX compilation and PDF preview. |
 | Trackly | Job discovery, saved jobs and job metadata. |
-| Codex | File editing, review loops, application preparation and workflow orchestration. |
-| Browser | Form inspection and human-approved application preparation. |
+| Codex | File editing, review loops, application preparation, browser-assisted submission and workflow orchestration. |
+| Browser | Form inspection, form filling and human-approved application submission. |
 
 ## Data Flow
 
@@ -31,11 +31,12 @@ job posting
   -> application folder
   -> fit analysis
   -> profile evidence lookup
+  -> private application data lookup
   -> LaTeX CV edits
   -> local compile and preview
   -> browser form preparation
   -> human approval
-  -> submission
+  -> Codex-executed submission
 ```
 
 ## Design Principles
@@ -44,5 +45,5 @@ job posting
 - Store broader evidence outside the CV.
 - Prefer role-specific variants over one bloated resume.
 - Keep claims evidence-backed and NDA-safe.
-- Use automation for preparation, not for unreviewed submission.
+- Use automation for preparation and submission, not for unreviewed submission.
 - Make the workflow inspectable by future Codex sessions.
