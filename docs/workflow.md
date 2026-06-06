@@ -72,12 +72,12 @@ cd cv-overleaf/techResume-main
 xelatex -interaction=nonstopmode -halt-on-error resume.tex
 ```
 
-## 6. Application Preparation And Submission
+## 6. Application
 
-Application forms can be prepared with Codex using the browser, and the final
+Application forms can be completed with Codex using the browser, and the final
 submission can also be executed through the Codex-managed workflow. Submission
 is still a separate approval step after the CV, form data and attachments have
-been prepared.
+been reviewed.
 
 Codex may help map fields, reuse approved personal data from the private
 application profile, prepare answers, attach the CV and identify required

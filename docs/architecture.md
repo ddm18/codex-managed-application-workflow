@@ -21,7 +21,7 @@ so future Codex sessions can inspect and continue the process.
 | GitHub | Versioned CV/project repositories. |
 | TinyTeX | Local LaTeX compilation and PDF preview. |
 | Trackly | External job discovery integration, saved jobs and job metadata. |
-| Codex | File editing, review loops, application preparation, browser-assisted submission and workflow orchestration. |
+| Codex | File editing, review loops, Codex-executed applications, browser-assisted submission and workflow orchestration. |
 | Browser | Form inspection, form filling and human-approved application submission. |
 
 ## Data Flow
@@ -35,7 +35,7 @@ external job integrations
   -> private application data lookup
   -> LaTeX CV edits
   -> local compile and preview
-  -> browser form preparation
+  -> browser application flow
   -> human approval
   -> Codex-executed submission
 ```
@@ -46,5 +46,5 @@ external job integrations
 - Store broader evidence outside the CV.
 - Prefer role-specific variants over one bloated resume.
 - Keep claims evidence-backed and NDA-safe.
-- Use automation for preparation and submission, not for unreviewed submission.
+- Use automation for application execution, not for unreviewed submission.
 - Make the workflow inspectable by future Codex sessions.

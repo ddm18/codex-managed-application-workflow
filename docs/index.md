@@ -5,8 +5,8 @@ through external integrations, reorganize a role-specific CV, prepare the
 application and submit it through Codex, with explicit human approval before
 any submission.
 
-> External job integrations find relevant roles; Codex reorganizes the CV,
-> prepares the application and asks for approval before it submits.
+> CV submitted through a personal Codex workflow after human approval, with
+> automated job discovery, CV reorganization and application submission.
 
 The workflow is designed as an engineering system rather than a generic resume
 generator. It keeps profile evidence, private reusable application-form data,
@@ -24,7 +24,7 @@ truthful. The workflow helps:
 - reuse progressively accumulated private application data for forms;
 - track job-specific reasoning and fit analysis;
 - compile and preview the final PDF locally;
-- prepare and submit application forms with a human-in-the-loop approval
+- complete and submit application forms with a human-in-the-loop approval
   boundary.
 
 ## Current Scope
@@ -36,7 +36,7 @@ The current implementation supports:
 - structured profile inventory, private application profile and application
   notes;
 - external job-discovery integrations, currently including Trackly;
-- browser-assisted form preparation and submission;
+- browser-assisted application submission;
 - explicit human approval before any submission.
 
 It is not intended to fabricate claims, hide gaps, or submit applications
