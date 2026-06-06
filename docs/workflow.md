@@ -8,7 +8,7 @@ application flow, then submit only after approval.
 
 ```plantuml
 @startuml
-scale 0.80
+scale 0.58
 hide footbox
 autonumber "<font color=white><b>#</b></font>"
 

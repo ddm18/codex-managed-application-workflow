@@ -183,10 +183,20 @@ body {
 }
 
 .md-typeset .uml svg {
-  width: 100%;
-  max-width: none;
+  width: auto;
+  max-width: 100%;
   height: auto;
   display: block;
+  margin: 0 auto;
+}
+
+.md-typeset svg.uml {
+  width: auto !important;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .workflow-strip {
@@ -317,10 +327,6 @@ body {
     bottom: -0.04rem;
     transform: translateX(-50%) rotate(135deg);
   }
-}
-
-.md-typeset .uml svg {
-  min-width: 980px;
 }
 
 .md-typeset img,
