@@ -209,6 +209,16 @@ body {
   width: min(100%, 760px) !important;
 }
 
+.md-typeset .architecture-diagram {
+  display: flex;
+  justify-content: center;
+}
+
+.md-typeset .architecture-diagram svg.uml,
+.md-typeset svg.uml.architecture-diagram {
+  width: min(100%, 860px) !important;
+}
+
 .workflow-strip {
   display: flex;
   align-items: stretch;

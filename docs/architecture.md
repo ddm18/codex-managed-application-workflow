@@ -31,6 +31,7 @@ BROWSER --> CODEX
 CODEX --> DOCS
 @enduml
 ```
+{: .architecture-diagram }
 
 ## Main Components
 

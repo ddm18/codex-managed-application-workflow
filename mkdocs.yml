@@ -30,7 +30,7 @@ theme:
       accent: red
 
 extra_css:
-  - stylesheets/extra-20260606-diagram-icons-v2.css
+  - stylesheets/extra-20260606-diagram-icons-v3.css
 
 plugins:
   - search
