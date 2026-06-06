@@ -48,7 +48,7 @@ This prevents the CV from becoming a broad keyword list.
 ## No False Automation Claims
 
 The workflow can state that the CV was reorganized and submitted through a
-Codex-managed process, but it should also state that submission required human
-approval.
+personal Codex-managed process, but it should also state that submission
+required human approval.
 
 That distinction matters.

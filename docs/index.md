@@ -4,8 +4,8 @@ This documentation describes the workflow used to reorganize a role-specific CV
 and prepare job applications through Codex, with explicit human approval before
 any submission.
 
-> This CV was reorganized for this role and submitted through a Codex-managed
-> workflow, with human approval before submission.
+> This CV was reorganized for this role and submitted through a personal
+> Codex-managed workflow, with human approval before submission. See projects.
 
 The workflow is designed as an engineering system rather than a generic resume
 generator. It keeps profile evidence, job context, CV source files, application
