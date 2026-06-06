@@ -4,10 +4,14 @@ The current workflow is already useful for role discovery, CV tailoring and
 human-approved submission. Future work should deepen the system without
 weakening its approval boundary.
 
-## Role-Specific CV Tracks
+## Reusable CV Tracks
 
-The current base CV is strongest for data/platform/backend roles. Future
-variants can specialize further:
+Per-job CV tailoring is already part of the current workflow. Future work here
+means creating reusable starting tracks for recurring role families, so each new
+application can start closer to the target before being tailored to the specific
+job request.
+
+Likely reusable tracks:
 
 - Data Engineer / Analytics Engineer;
 - Backend Engineer with data platform emphasis;

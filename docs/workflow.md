@@ -15,7 +15,7 @@ sequenceDiagram
   participant B as Browser / ATS
 
   C->>S: Find role and read reusable evidence
-  C->>S: Create job workspace and reorganize CV
+  C->>S: Create job workspace and tailor CV to job
   C->>C: Compile PDF and inspect preview
   C->>B: Fill application flow with approved data
   C->>U: Request final submission approval
@@ -76,6 +76,10 @@ Codex edits the LaTeX source directly, usually in small scoped changes:
 
 The current base CV emphasizes data/platform/backend evidence, with the NYC
 Urban Mobility Data Platform as the flagship public project.
+
+This per-job tailoring is part of the current workflow. Future reusable CV
+tracks are only starting points for recurring role families, not a replacement
+for tailoring each application to the actual job request.
 
 ## 4. Review Loop
 

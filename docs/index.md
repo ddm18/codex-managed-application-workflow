@@ -21,7 +21,7 @@ notes, PDF previews and guardrails in one repeatable process.
   <div class="workflow-step workflow-step--codex">
     <img class="workflow-step__icon" src="assets/codex-app-icon.png" alt="" />
     <span class="workflow-step__actor">Codex</span>
-    <strong>Tailor CV to role</strong>
+    <strong>Tailor CV to job</strong>
   </div>
   <span class="workflow-arrow" aria-hidden="true"></span>
   <div class="workflow-step workflow-step--codex">
@@ -63,6 +63,8 @@ The current implementation supports:
 
 - a Git-backed LaTeX CV synchronized with Overleaf;
 - local PDF compilation through TinyTeX;
+- per-job CV tailoring from the base CV, reusable evidence inventory and job
+  requirements;
 - structured profile inventory, private application profile and application
   notes;
 - external job-discovery integrations, currently including Trackly;
