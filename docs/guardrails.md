@@ -5,7 +5,8 @@ or control. Codex can search, queue and brief roles freely. Expensive
 application work is gated before it starts: Codex must summarize the company,
 role, location/work mode, sponsorship implications and risks before creating a
 package, tailoring the CV or filling forms. Final submission for each job
-remains separately human-approved.
+remains separately human-approved, but that final gate is intentionally
+lightweight when the earlier pre-work gate already accepted the opportunity.
 
 ## Approval Boundary
 
@@ -62,13 +63,22 @@ There are two human gates:
 - Pre-work approval: required before package creation, CV tailoring, PDF build,
   ATS inspection/fill or submission packet work for a specific job.
 - Final submission approval: required before clicking submit/apply/confirm or
-  using an autoapply channel for that specific job.
+  using an autoapply channel for that specific job. This should be a short
+  safety check, not a second full role evaluation.
 
-Codex can search, queue and brief roles without asking. It can prepare, inspect,
-draft, attach and submit through the browser or an autoapply channel only after
-the relevant gates have passed.
+Codex can search, queue and brief roles without asking. After the pre-work gate
+passes, Codex can prepare, inspect, draft and attach without asking again unless
+new missing or sensitive information appears. It can submit through the browser
+or an autoapply channel only after the lightweight final submit gate passes.
 
 This avoids turning the workflow into an uncontrolled application bot.
+
+The practical approval rhythm is:
+
+1. Pre-work gate: "Is this role worth preparing?"
+2. Preparation: Codex handles CV, PDF, form and notes.
+3. Final submit gate: "Here is the final artifact and sensitive answers; approve
+   the actual submit click?"
 
 ## Private Application Profile
 

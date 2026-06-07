@@ -7,8 +7,8 @@
 This site documents the engineering system behind that line: Codex discovers
 relevant roles, manages an active job queue, shows a pre-work brief before
 spending effort on a role, tailors the LaTeX CV only after that gate, reuses a
-private answer bank, prepares the browser application, and submits only after
-explicit approval while keeping evidence, job notes, PDF previews and
+private answer bank, prepares the browser application, and submits only after a
+lightweight final approval while keeping evidence, job notes, PDF previews and
 guardrails in one repeatable process.
 
 ## Workflow At A Glance
@@ -67,6 +67,8 @@ truthful. The workflow helps:
 - compile and preview the final PDF locally;
 - complete and submit application forms with a human-in-the-loop approval
   boundary.
+- keep the final submit approval short when the earlier pre-work gate already
+  accepted the role.
 
 ## Current Scope
 

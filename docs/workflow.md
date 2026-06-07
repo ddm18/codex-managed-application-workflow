@@ -3,8 +3,8 @@
 The workflow treats job applications as a persistent queue-driven pipeline:
 discover and rank roles, show a short pre-work brief before spending effort on
 any job, tailor the CV only after that gate, ask for missing data one question
-at a time, save reusable answers, prepare a submission packet, then submit only
-after final approval.
+at a time, save reusable answers, prepare a lightweight final submit check, then
+submit only after final approval.
 
 ## Execution Sequence
 
@@ -26,8 +26,8 @@ U --> C: <color:white>Accept or skip before CV work</color>
 C -> S: <color:white>Create job workspace</color>\n<color:white>and tailor CV to role</color>
 C -> S: <color:white>Ask one missing question</color>\n<color:white>and save reusable answer</color>
 C -> C: <color:white>Compile PDF and inspect preview</color>
-C -> B: <color:white>Prepare submission packet</color>\n<color:white>and fill application flow</color>
-C -> U: <color:white>Request final submission approval</color>
+C -> B: <color:white>Fill application flow</color>\n<color:white>and prepare submit check</color>
+C -> U: <color:white>Request lightweight final approval</color>
 U --> C: <color:white>Approve or request revision</color>
 
 alt Approved
@@ -162,10 +162,12 @@ including FontAwesome icons and `pdfx` metadata.
 Application forms can be completed with Codex using the browser after the
 pre-work gate has passed. The final submission can also be executed through the
 Codex-managed workflow. Submission is still a separate approval step after the
-CV, form data and attachments have been reviewed.
+CV, form data and attachments have been reviewed, but it is intentionally
+lighter than the pre-work gate.
 
-Before approval, Codex prepares a submission packet: target role, CV path, main
-tailoring changes, sensitive form answers, risks/gaps and the exact submit
-channel. It must not click final submit/apply/confirm unless the user explicitly
-approves that specific job. After submission or skip, Codex updates Trackly and
-the application folder, then removes the job from the active queue.
+Before final approval, Codex prepares a compact submit check: CV path,
+attachments, sensitive form answers, any new surprises since the pre-work gate
+and the exact submit channel. It must not click final submit/apply/confirm
+unless the user explicitly approves that specific job. After submission or
+skip, Codex updates Trackly and the application folder, then removes the job
+from the active queue.
