@@ -1,8 +1,8 @@
 # Future Work
 
-The current workflow is already useful for role discovery, CV tailoring and
-human-approved submission. Future work should deepen the system without
-weakening its approval boundary.
+The current workflow now supports role discovery, queue management, CV
+tailoring, reusable answers and human-approved submission. Future work should
+deepen the system without weakening its approval boundary.
 
 ## Reusable CV Tracks
 
@@ -47,10 +47,11 @@ expanding it further, review:
 
 Possible next steps:
 
-- generate a per-job application packet automatically;
+- improve queue cleanup and stale-maybe review;
+- add richer search/ranking analytics across Trackly batches;
 - keep expanding the private application profile with recurring personal data
   and form answers;
 - keep a changelog of CV variants;
-- add a validation checklist before each submission;
+- turn submission packets into a consistent rendered artifact;
 - create role-specific prompt templates;
 - connect the workflow to a public portfolio page.

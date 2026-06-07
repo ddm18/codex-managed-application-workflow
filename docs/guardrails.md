@@ -1,9 +1,11 @@
 # Guardrails
 
 The workflow is designed to increase leverage without sacrificing truthfulness
-or control. The important boundary is simple: Codex can organize, draft,
-compile, inspect and execute the application flow, but the final submission is
-human-approved.
+or control. Codex can search, queue and brief roles freely. Expensive
+application work is gated before it starts: Codex must summarize the company,
+role, location/work mode, sponsorship implications and risks before creating a
+package, tailoring the CV or filling forms. Final submission for each job
+remains separately human-approved.
 
 ## Approval Boundary
 
@@ -12,8 +14,18 @@ human-approved.
 scale 0.72
 start
 :Inspect role inputs;
-:Tailor CV / answers;
+:Update active queue;
+
+:Show pre-work brief;
+if (Proceed with this role?) then (yes)
+  :Tailor CV / answers;
+else (no)
+  :Skip / dismiss and continue queue;
+  stop
+endif
+
 :Review PDF + form state;
+:Prepare submission packet;
 
 if (Next action submits data?) then (yes)
   :Ask user for explicit approval;
@@ -45,17 +57,26 @@ inventory but should not become a base-CV headline.
 
 ## Human Approval
 
-Submission is always human-approved. Codex can prepare, inspect, draft, attach
-and submit through the browser, but final submission requires explicit
-confirmation.
+There are two human gates:
+
+- Pre-work approval: required before package creation, CV tailoring, PDF build,
+  ATS inspection/fill or submission packet work for a specific job.
+- Final submission approval: required before clicking submit/apply/confirm or
+  using an autoapply channel for that specific job.
+
+Codex can search, queue and brief roles without asking. It can prepare, inspect,
+draft, attach and submit through the browser or an autoapply channel only after
+the relevant gates have passed.
 
 This avoids turning the workflow into an uncontrolled application bot.
 
 ## Private Application Profile
 
 Personal details and recurring form answers live in a private local Markdown
-application profile. Codex may use that file to prefill forms, but it should not
-publish the contents or transmit them to an external ATS without confirmation.
+application profile. Codex may reuse stored answers in local drafts and
+application preparation. If an answer is missing, ambiguous, sensitive or
+legally material, Codex asks one question, saves the answer, then resumes the
+same application.
 
 ## NDA-Safe Wording
 
@@ -93,3 +114,13 @@ The fixed base-CV line is:
 > CV submitted through a personal Codex workflow after human approval, with
 > automated job discovery, CV reorganization and application submission. See
 > projects for details.
+
+## Queue Discipline
+
+The active queue is not a public archive or proof of submission. Worked
+applications live in their own folders, and external status lives in Trackly.
+After submit or skip, Codex updates those records and removes the job from the
+active queue so future sessions do not reprocess it.
+
+Jobs that fail the pre-work gate should be dismissed or moved out of the active
+queue before any CV/form work happens.

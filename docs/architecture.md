@@ -12,15 +12,18 @@ left to right direction
 scale 0.92
 
 cloud "External Job\nIntegrations" as JOBS
-database "Profile + Private\nApplication Data" as DATA
+database "Profile + Private\nAnswer Bank" as DATA
+queue "Active Job\nQueue" as QUEUE
 component "Codex Orchestrator" as CODEX
 storage "Job Workspace" as APPS
 storage "LaTeX CV Source" as CV
-component "TinyTeX\nPDF Preview" as TEX
+component "TinyTeX / XeLaTeX\nBuild + PDF Preview" as TEX
 component "Browser / ATS" as BROWSER
 cloud "Public MkDocs\nSite" as DOCS
 
 JOBS --> CODEX
+CODEX --> QUEUE
+QUEUE --> CODEX
 DATA --> CODEX
 CODEX --> APPS
 CODEX --> CV
@@ -38,9 +41,11 @@ CODEX --> DOCS
 | Component | Purpose |
 | --- | --- |
 | `cv-overleaf/` | Git-backed LaTeX CV source, compatible with Overleaf. |
+| `applications/job-queue.md` | Active queue for ready, maybe and blocked opportunities. |
+| `applications/search-preferences.md` | Mutable role, location, ranking and hard-no preferences. |
 | `applications/profile-inventory.md` | Reusable evidence inventory for skills, projects and positioning. |
-| `applications/application-profile.md` | Private reusable application-form information, personal details and form guardrails. |
-| `applications/<job>/` | Job-specific notes, fit analysis and tailoring plans. |
+| `applications/application-profile.md` | Private reusable answer bank, personal details and form guardrails. |
+| `applications/<job>/` | Archive for worked applications: job notes, fit analysis, tailoring plans, CV source/PDF and submission notes. |
 | `codex-managed-application-workflow/` | Public documentation of the workflow itself. |
 
 ## External Services And Tools
@@ -49,7 +54,7 @@ CODEX --> DOCS
 | --- | --- |
 | Overleaf | Remote LaTeX editing and PDF rendering when needed. |
 | GitHub | Versioned CV/project repositories. |
-| TinyTeX | Local LaTeX compilation and PDF preview. |
+| TinyTeX / XeLaTeX | Local LaTeX compilation, page-count checks and PDF preview. |
 | Trackly | External job discovery integration, saved jobs and job metadata. |
 | Codex | File editing, review loops, Codex-executed applications, browser-assisted submission and workflow orchestration. |
 | Browser | Form inspection, form filling and human-approved application submission. |
@@ -59,15 +64,21 @@ CODEX --> DOCS
 ```text
 external job integrations
   -> relevant job posting
-  -> application folder
+  -> active job queue
+  -> pre-work brief and user acceptance
+  -> ready job package
   -> fit analysis
   -> profile evidence lookup
-  -> private application data lookup
+  -> private answer-bank lookup
+  -> one-question missing-data loop
   -> LaTeX CV edits
   -> local compile and preview
+  -> submission packet
   -> browser application flow
   -> human approval
   -> Codex-executed submission
+  -> Trackly/folder update
+  -> remove from active queue
 ```
 
 ## Design Principles
@@ -75,6 +86,9 @@ external job integrations
 - Keep the base CV concise and credible.
 - Store broader evidence outside the CV.
 - Prefer role-specific variants over one bloated resume.
+- Keep the active queue small enough to work, but persistent enough to resume.
+- Gate expensive work early: brief first, prepare only after the user accepts
+  the specific role.
 - Keep claims evidence-backed and NDA-safe.
 - Use automation for application execution, not for unreviewed submission.
 - Make the workflow inspectable by future Codex sessions.

@@ -4,10 +4,12 @@
 > automated job discovery, CV reorganization and application submission. See
 > projects for details.
 
-This site documents the engineering system behind that line: Codex finds
-relevant roles, tailors the LaTeX CV, prepares the browser application, and
-submits only after explicit approval while keeping evidence, profile data, job
-notes, PDF previews and guardrails in one repeatable process.
+This site documents the engineering system behind that line: Codex discovers
+relevant roles, manages an active job queue, shows a pre-work brief before
+spending effort on a role, tailors the LaTeX CV only after that gate, reuses a
+private answer bank, prepares the browser application, and submits only after
+explicit approval while keeping evidence, job notes, PDF previews and
+guardrails in one repeatable process.
 
 ## Workflow At A Glance
 
@@ -15,31 +17,37 @@ notes, PDF previews and guardrails in one repeatable process.
   <div class="workflow-step workflow-step--codex">
     <img class="workflow-step__icon" src="assets/codex-app-icon.png" alt="" />
     <span class="workflow-step__actor">Codex</span>
-    <strong>Find interesting jobs</strong>
-  </div>
-  <span class="workflow-arrow" aria-hidden="true"></span>
-  <div class="workflow-step workflow-step--codex">
-    <img class="workflow-step__icon" src="assets/codex-app-icon.png" alt="" />
-    <span class="workflow-step__actor">Codex</span>
-    <strong>Tailor CV to job</strong>
-  </div>
-  <span class="workflow-arrow" aria-hidden="true"></span>
-  <div class="workflow-step workflow-step--codex">
-    <img class="workflow-step__icon" src="assets/codex-app-icon.png" alt="" />
-    <span class="workflow-step__actor">Codex</span>
-    <strong>Prepare application</strong>
+    <strong>Find and queue jobs</strong>
   </div>
   <span class="workflow-arrow" aria-hidden="true"></span>
   <div class="workflow-step workflow-step--user">
     <img class="workflow-step__icon" src="assets/user-icon.svg" alt="" />
     <span class="workflow-step__actor">user</span>
-    <strong>Review and approve</strong>
+    <strong>Accept pre-work brief</strong>
   </div>
   <span class="workflow-arrow" aria-hidden="true"></span>
   <div class="workflow-step workflow-step--codex">
     <img class="workflow-step__icon" src="assets/codex-app-icon.png" alt="" />
     <span class="workflow-step__actor">Codex</span>
-    <strong>Submit application</strong>
+    <strong>Tailor CV to role</strong>
+  </div>
+  <span class="workflow-arrow" aria-hidden="true"></span>
+  <div class="workflow-step workflow-step--codex">
+    <img class="workflow-step__icon" src="assets/codex-app-icon.png" alt="" />
+    <span class="workflow-step__actor">Codex</span>
+    <strong>Ask and save answers</strong>
+  </div>
+  <span class="workflow-arrow" aria-hidden="true"></span>
+  <div class="workflow-step workflow-step--user">
+    <img class="workflow-step__icon" src="assets/user-icon.svg" alt="" />
+    <span class="workflow-step__actor">user</span>
+    <strong>Approve packet</strong>
+  </div>
+  <span class="workflow-arrow" aria-hidden="true"></span>
+  <div class="workflow-step workflow-step--codex">
+    <img class="workflow-step__icon" src="assets/codex-app-icon.png" alt="" />
+    <span class="workflow-step__actor">Codex</span>
+    <strong>Submit and update</strong>
   </div>
 </div>
 
@@ -50,6 +58,9 @@ truthful. The workflow helps:
 
 - tailor a LaTeX CV to a specific job description;
 - use external job-discovery integrations to find relevant roles;
+- maintain an active queue of ready, maybe and blocked opportunities;
+- avoid wasting CV/form work on roles that fail location, work-mode,
+  sponsorship or compensation preferences;
 - preserve evidence-backed claims;
 - reuse progressively accumulated private application data for forms;
 - track job-specific reasoning and fit analysis;
@@ -63,10 +74,11 @@ The current implementation supports:
 
 - a Git-backed LaTeX CV synchronized with Overleaf;
 - local PDF compilation through TinyTeX;
+- a persistent Markdown job queue and mutable search preferences;
 - per-job CV tailoring from the base CV, reusable evidence inventory and job
-  requirements;
-- structured profile inventory, private application profile and application
-  notes;
+  requirements after a pre-work acceptance gate;
+- structured profile inventory, private application profile, reusable answer
+  bank and application notes;
 - external job-discovery integrations, currently including Trackly;
 - browser-assisted application submission;
 - explicit human approval before any submission.
