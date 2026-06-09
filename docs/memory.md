@@ -81,7 +81,9 @@ a derived chunk selected by search.
 Conditional retrieval is for historical context that may be useful but should
 not be loaded by default.
 
-It runs for decisions such as:
+### Trigger Points
+
+It runs only at decision points where history can change the answer:
 
 - same-company checks;
 - prior CV strategy;
@@ -89,30 +91,7 @@ It runs for decisions such as:
 - ATS/debug audits;
 - outreach follow-up review.
 
-Retrieval uses exact search first and semantic search only when exact lookup is
-not enough:
-
-| Layer | Role |
-| --- | --- |
-| SQLite FTS | Exact lookup by company, Trackly id, heading or keyword. |
-| LanceDB RAG | Semantic fallback over curated Markdown chunks. |
-
-## Context Pack
-
-The Context Pack is the output of conditional retrieval. It is not raw memory
-and it is not a new source of truth.
-
-It should be a short, cited brief that says:
-
-- which local sections matter;
-- what prior decisions or risks they contain;
-- whether Trackly and local notes conflict;
-- what the active loop should read or decide next.
-
-The pack is useful because it lets Codex carry just the relevant history into a
-decision, instead of loading every application folder.
-
-## Index Scope
+### Indexed Memory
 
 The v1 index includes curated operational Markdown:
 
@@ -132,7 +111,45 @@ Final CV information is preserved through a `## Submitted CV Summary` section in
 each submitted job's `notes.md`. That summary is the memory-friendly
 representation of what was actually sent.
 
-## Build And Freshness
+### Retrieval Layers
+
+Retrieval uses exact search first. Semantic search is a fallback, not the
+default path.
+
+| Layer | Role |
+| --- | --- |
+| SQLite FTS | Exact lookup by company, Trackly id, heading or keyword. |
+| LanceDB RAG | Semantic fallback over curated Markdown chunks. |
+
+### Context Pack
+
+The Context Pack is the output of conditional retrieval. It is not raw memory
+and it is not a new source of truth.
+
+It should be a short, cited brief that says:
+
+- which local sections matter;
+- what prior decisions or risks they contain;
+- whether Trackly and local notes conflict;
+- what the active loop should read or decide next.
+
+The pack is useful because it lets Codex carry just the relevant history into a
+decision, instead of loading every application folder.
+
+### Retrieval Subagent
+
+For larger context decisions, Codex can delegate a read-only retrieval subagent.
+The subagent returns a Context Pack with cited headings rather than raw file
+dumps. It may check Trackly for live facts, query SQLite/FTS, use semantic
+fallback when needed and open only the cited Markdown sections required to
+verify the pack.
+
+The subagent is not allowed to modify files, update Trackly, change outreach
+state, send LinkedIn messages, scrape LinkedIn or click LinkedIn buttons.
+
+## Freshness And Failure
+
+### Build And Freshness
 
 Generated memory artifacts live under:
 
@@ -158,18 +175,7 @@ rebuilds:
 /Users/dariodm/Documents/ai-managed-documents/scripts/workflow-memory.sh build
 ```
 
-## Retrieval Subagent
-
-For larger context decisions, Codex can delegate a read-only retrieval subagent.
-The subagent returns a Context Pack with cited headings rather than raw file
-dumps. It may check Trackly for live facts, query SQLite/FTS, use semantic
-fallback when needed and open only the cited Markdown sections required to
-verify the pack.
-
-The subagent is not allowed to modify files, update Trackly, change outreach
-state, send LinkedIn messages, scrape LinkedIn or click LinkedIn buttons.
-
-## Degraded Mode
+### Degraded Mode
 
 If retrieval fails, the active loop continues. Codex falls back to Trackly,
 always-read files, direct workflow reads and targeted `rg`, then reports that
