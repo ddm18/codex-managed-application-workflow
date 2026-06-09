@@ -16,7 +16,7 @@ database "Profile + Private\nAnswer Bank" as DATA
 queue "Active Job\nQueue" as QUEUE
 component "Codex Orchestrator" as CODEX
 storage "Job Workspace" as APPS
-database "Manual Outreach\nLog" as OUTREACH
+storage "Outreach Log" as OUT
 storage "LaTeX CV Source" as CV
 component "TinyTeX / XeLaTeX\nBuild + PDF Preview" as TEX
 component "Browser / ATS" as BROWSER
@@ -27,7 +27,7 @@ CODEX --> QUEUE
 QUEUE --> CODEX
 DATA --> CODEX
 CODEX --> APPS
-CODEX --> OUTREACH
+CODEX --> OUT
 CODEX --> CV
 CV --> TEX
 TEX --> CODEX
