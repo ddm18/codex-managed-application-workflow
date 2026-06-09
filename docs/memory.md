@@ -62,6 +62,54 @@ give Codex the current operating state without querying the archive.
 
 The active queue is never reconstructed from RAG. It is read directly.
 
+### Queue Shape
+
+The queue is the short operational worklist for jobs that still need action. It
+is not an archive of every job ever touched.
+
+It is organized into three sections:
+
+| Section | Meaning |
+| --- | --- |
+| `Ready` | Jobs accepted by the pre-work gate or close enough to continue. |
+| `Maybe` | Plausible jobs that need a brief before promotion. |
+| `Blocked` | Jobs paused by location, sponsorship, ATS failure, poor fit or explicit user decision. |
+
+Each active row carries the information needed to decide the next move without
+opening the whole archive: priority, local status, company, role, location,
+Trackly id, autoapply flag, job URL and next action. Blocked rows replace
+location/URL detail with the blocker and the condition for revisiting.
+
+Completed, skipped or abandoned applications leave the queue and move into the
+application folder plus Trackly status. This keeps the queue small enough to
+read every loop start.
+
+### Current State Shape
+
+`current-state.md` is generated from local files. It gives the loops a compact
+dashboard before they do deeper work:
+
+- control metadata and memory health;
+- ready, maybe and blocked queue counts;
+- recent application folders and Trackly ids;
+- open outreach opportunities and follow-up counts;
+- retrieval index health;
+- stale-state or low-queue warnings.
+
+It is a convenience snapshot, not a source of truth. If it conflicts with
+Trackly or local Markdown, the loop checks the original source.
+
+### Preference Shape
+
+`search-preferences.md` is the standing policy file. It tells the loop how to
+rank or reject jobs before spending time on CV tailoring or ATS work.
+
+It contains target role families, company and location preferences, seniority
+rules, hard-no constraints, ATS automation notes and approval gates. This is
+where broad rules live, such as preferring AI/data/platform work, avoiding pure
+ML research roles unless the scope is actually platform/tooling, and requiring
+explicit approval before external submission.
+
 ## Direct Reads
 
 These sources are canonical for their workflow, but not every loop needs them on
@@ -75,6 +123,35 @@ every turn.
 
 Direct reads are different from retrieval: Codex opens the source of truth, not
 a derived chunk selected by search.
+
+### Profile Shape
+
+The "profile" is split into two files because they answer different questions.
+
+| Source | What It Means |
+| --- | --- |
+| `profile-inventory.md` | Evidence inventory for CV strategy: skills, work evidence, project evidence, positioning, guardrails and what can honestly be emphasized. |
+| `application-profile.md` | Reusable application-form answers: personal details, work authorization, education, language answers, recurring ATS answers and consent rules. |
+
+The inventory is used when Codex asks, "what should this CV emphasize for this
+role?" The application profile is used when Codex asks, "what honest answer
+should go into this form field?"
+
+Neither file is a final CV. The CV is built from them, the role description and
+the application-specific fit analysis.
+
+### Outreach Shape
+
+`outreach-log.md` has two levels:
+
+| Level | Purpose |
+| --- | --- |
+| Opportunities | One row per worked job where outreach may help, with priority, status, company, role, folder, Trackly id, job URL and reason. |
+| Contacts | One row per person to message, with stable `OUT-*` id, relevance, source, LinkedIn target, ranking reason, draft, sent date, follow-up date and notes. |
+
+The Application Loop only creates or updates the opportunity level after a job
+reaches a terminal application state. The Outreach Loop later researches people,
+ranks contacts and drafts messages.
 
 ## Conditional Retrieval
 
@@ -110,6 +187,21 @@ It excludes generated or high-noise artifacts:
 Final CV information is preserved through a `## Submitted CV Summary` section in
 each submitted job's `notes.md`. That summary is the memory-friendly
 representation of what was actually sent.
+
+### Application Folder Shape
+
+Each worked job has a local folder. The index only uses the files that are
+stable enough to be useful later:
+
+| File | Indexed Meaning |
+| --- | --- |
+| `job.md` | Local copy of the role facts: company, title, location, URL, Trackly id and job description. |
+| `fit-analysis.md` | Decision brief: fit, risks, gaps, CV strategy and why the job was accepted, skipped or abandoned. |
+| `notes.md` | Execution log: ATS details, submission outcome, outreach section, submitted CV summary and follow-up notes. |
+
+This is the history retrieval is meant to find. For example, a same-company
+check should retrieve prior folders for that company, while a CV strategy check
+should retrieve similar `fit-analysis.md` sections and submitted CV summaries.
 
 ### Retrieval Layers
 
@@ -161,6 +253,11 @@ applications/
     chunks.sqlite
     lancedb/
 ```
+
+`company-aliases.yml` keeps company identity consistent across local folders and
+Trackly. Trackly company id wins first, company domain second and aliases last.
+This helps same-company checks avoid treating small naming differences as
+different companies.
 
 If the index is missing or stale, the loop runs:
 
