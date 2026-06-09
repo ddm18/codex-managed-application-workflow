@@ -161,17 +161,14 @@ a derived chunk selected by search.
 Conditional retrieval is for historical context that may be useful but should
 not be loaded by default.
 
-??? info "Trigger Points"
+| Decision Point | What It Looks For | Output |
+| --- | --- | --- |
+| Same-company check | Prior folders, Trackly ids, aliases and previous role/status notes. | Prior applications plus an apply/skip/wait recommendation. |
+| CV strategy | Similar `fit-analysis.md` sections, submitted CV summaries and relevant profile evidence. | Role-specific emphasis, risks and honest positioning. |
+| ATS/debug audit | Prior `notes.md` sections about form fields, browser failures, verification issues or submission outcomes. | The likely source sections to inspect before retrying or abandoning. |
+| Outreach review | `outreach-log.md`, job `notes.md#Outreach` and relevant high-fit applications. | Outreach opportunities, follow-up state or contact-message context. |
 
-    It runs only at decision points where history can change the answer:
-
-    - same-company checks;
-    - prior CV strategy;
-    - similar submitted applications;
-    - ATS/debug audits;
-    - outreach follow-up review.
-
-??? info "Indexed Memory"
+??? info "Indexed Sources"
 
     The v1 index includes curated operational Markdown:
 
@@ -179,22 +176,7 @@ not be loaded by default.
       `application-profile.md`, `profile-inventory.md` and `outreach-log.md`;
     - application folders: `job.md`, `fit-analysis.md` and `notes.md`.
 
-    It excludes generated or high-noise artifacts:
-
-    - CV PDFs;
-    - LaTeX source copied into application folders;
-    - LaTeX build logs and auxiliary files;
-    - screenshots and form images;
-    - generated submission packets and application-form drafts.
-
-    Final CV information is preserved through a `## Submitted CV Summary`
-    section in each submitted job's `notes.md`. That summary is the
-    memory-friendly representation of what was actually sent.
-
-??? info "Application Folder Shape"
-
-    Each worked job has a local folder. The index only uses the files that are
-    stable enough to be useful later:
+    Each worked job has a local folder:
 
     | File | Indexed Meaning |
     | --- | --- |
@@ -202,12 +184,11 @@ not be loaded by default.
     | `fit-analysis.md` | Decision brief: fit, risks, gaps, CV strategy and why the job was accepted, skipped or abandoned. |
     | `notes.md` | Execution log: ATS details, submission outcome, outreach section, submitted CV summary and follow-up notes. |
 
-    This is the history retrieval is meant to find. For example, a same-company
-    check should retrieve prior folders for that company, while a CV strategy
-    check should retrieve similar `fit-analysis.md` sections and submitted CV
-    summaries.
+    The index excludes generated or high-noise artifacts such as CV PDFs,
+    LaTeX source copied into application folders, LaTeX build output,
+    screenshots, submission packets and application-form drafts.
 
-??? info "Retrieval Layers"
+??? info "Retrieval Flow"
 
     Retrieval uses exact search first. Semantic search is a fallback, not the
     default path.
@@ -215,9 +196,13 @@ not be loaded by default.
     | Layer | Role |
     | --- | --- |
     | SQLite FTS | Exact lookup by company, Trackly id, heading or keyword. |
-    | LanceDB RAG | Semantic fallback over curated Markdown chunks. |
+    | LanceDB RAG | Semantic fallback over curated Markdown chunks when exact lookup is not enough. |
 
-??? info "Context Pack"
+    This is why the index is useful even when the underlying files are still
+    Markdown: SQLite points to the right local sections quickly, while LanceDB
+    helps only when the wording is fuzzy or the relevant history is not obvious.
+
+??? info "Context Pack And Boundary"
 
     The Context Pack is the output of conditional retrieval. It is not raw
     memory and it is not a new source of truth.
@@ -229,19 +214,11 @@ not be loaded by default.
     - whether Trackly and local notes conflict;
     - what the active loop should read or decide next.
 
-    The pack is useful because it lets Codex carry just the relevant history
-    into a decision, instead of loading every application folder.
-
-??? info "Retrieval Subagent"
-
     For larger context decisions, Codex can delegate a read-only retrieval
-    subagent. The subagent returns a Context Pack with cited headings rather
-    than raw file dumps. It may check Trackly for live facts, query SQLite/FTS,
-    use semantic fallback when needed and open only the cited Markdown sections
-    required to verify the pack.
-
-    The subagent is not allowed to modify files, update Trackly, change outreach
-    state, send LinkedIn messages, scrape LinkedIn or click LinkedIn buttons.
+    subagent. The subagent may check Trackly for live facts, query SQLite/FTS,
+    use semantic fallback and open cited Markdown sections, but it cannot modify
+    files, update Trackly, change outreach state, send LinkedIn messages, scrape
+    LinkedIn or click LinkedIn buttons.
 
 ## Freshness And Failure
 
