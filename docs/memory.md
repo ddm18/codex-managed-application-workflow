@@ -9,50 +9,50 @@ instead of loading the whole application archive.
 
 ## Memory Shape
 
-The loop keeps a small always-read context in front of Codex, then retrieves
-historical chunks only when a decision needs them.
+The loops keep a small always-read context in front of Codex. Larger historical
+context is pulled only when a decision needs it.
 
 ```plantuml
 @startuml
-left to right direction
-scale 0.72
+top to bottom direction
+scale 0.78
 
-component "Codex\napplication or\noutreach loop" as LOOP #101721
-cloud "Trackly\nlive job facts\nand external status" as TRACKLY #0B1018
+component "Application Loop\nor Outreach Loop" as LOOP #101721
 
-package "Omnipresent Context\nread directly at loop start" as ALWAYS #0E2A25 {
-  storage "current-state.md\ncompact snapshot" as STATE #102821
-  queue "job-queue.md\nactive worklist" as QUEUE #102821
-  storage "search-preferences.md\nranking and hard-no rules" as PREFS #102821
+package "Always Read" as ALWAYS #0E2A25 {
+  storage "current-state.md" as STATE #102821
+  queue "job-queue.md" as QUEUE #102821
+  storage "search-preferences.md" as PREFS #102821
 }
 
-package "Loop-Canonical Reads\nread directly when that loop needs them" as DIRECT #172036 {
-  storage "profile-inventory.md\napplication-profile.md\nbase CV and answer evidence" as PROFILE #111A26
-  storage "outreach-log.md\nmanual outreach state" as OUTREACH #111A26
+package "Direct Reads" as DIRECT #172036 {
+  storage "profile-inventory.md\napplication-profile.md" as PROFILE #111A26
+  storage "outreach-log.md" as OUTREACH #111A26
 }
 
-package "Conditional Retrieval\nonly at historical decision points" as CONDITIONAL #201016 {
-  database "SQLite FTS\ncompany, id, heading,\nkeyword lookup" as FTS #171923
-  database "LanceDB RAG fallback\nsemantic lookup over\ncurated Markdown chunks" as RAG #171923
-  storage "Compact context pack\n5-12 cited chunks,\nnot raw archive dumps" as PACK #151923
+package "Conditional Retrieval" as RETRIEVAL #201016 {
+  database "SQLite FTS" as FTS #171923
+  database "LanceDB RAG" as RAG #171923
+  storage "Context Pack" as PACK #151923
 }
 
-LOOP --> ALWAYS : always loaded
-LOOP --> DIRECT : loaded by task type
-LOOP --> TRACKLY : live checks
-LOOP ..> CONDITIONAL : only when history matters
+cloud "Trackly\nlive facts" as TRACKLY #0B1018
+
+ALWAYS --> LOOP
+DIRECT --> LOOP
+TRACKLY --> LOOP
+LOOP ..> RETRIEVAL
 FTS --> PACK
 RAG --> PACK
-PACK --> LOOP : cited context
-
-note bottom of CONDITIONAL
-  Examples: same-company checks,
-  prior CV strategy, ATS/debug audits,
-  outreach follow-up review.
-end note
+PACK ..> LOOP
 @enduml
 ```
 {: .memory-diagram }
+
+The `Context Pack` is the retrieval answer: a short, cited summary assembled
+from the relevant Markdown sections. It is used for historical decisions such as
+same-company checks, prior CV strategy, ATS/debug audits and outreach follow-up
+review.
 
 ## Source Boundaries
 
