@@ -62,53 +62,55 @@ give Codex the current operating state without querying the archive.
 
 The active queue is never reconstructed from RAG. It is read directly.
 
-### Queue Shape
+??? info "Queue Shape"
 
-The queue is the short operational worklist for jobs that still need action. It
-is not an archive of every job ever touched.
+    The queue is the short operational worklist for jobs that still need action.
+    It is not an archive of every job ever touched.
 
-It is organized into three sections:
+    It is organized into three sections:
 
-| Section | Meaning |
-| --- | --- |
-| `Ready` | Jobs accepted by the pre-work gate or close enough to continue. |
-| `Maybe` | Plausible jobs that need a brief before promotion. |
-| `Blocked` | Jobs paused by location, sponsorship, ATS failure, poor fit or explicit user decision. |
+    | Section | Meaning |
+    | --- | --- |
+    | `Ready` | Jobs accepted by the pre-work gate or close enough to continue. |
+    | `Maybe` | Plausible jobs that need a brief before promotion. |
+    | `Blocked` | Jobs paused by location, sponsorship, ATS failure, poor fit or explicit user decision. |
 
-Each active row carries the information needed to decide the next move without
-opening the whole archive: priority, local status, company, role, location,
-Trackly id, autoapply flag, job URL and next action. Blocked rows replace
-location/URL detail with the blocker and the condition for revisiting.
+    Each active row carries the information needed to decide the next move
+    without opening the whole archive: priority, local status, company, role,
+    location, Trackly id, autoapply flag, job URL and next action. Blocked rows
+    replace location/URL detail with the blocker and the condition for
+    revisiting.
 
-Completed, skipped or abandoned applications leave the queue and move into the
-application folder plus Trackly status. This keeps the queue small enough to
-read every loop start.
+    Completed, skipped or abandoned applications leave the queue and move into
+    the application folder plus Trackly status. This keeps the queue small
+    enough to read every loop start.
 
-### Current State Shape
+??? info "Current State Shape"
 
-`current-state.md` is generated from local files. It gives the loops a compact
-dashboard before they do deeper work:
+    `current-state.md` is generated from local files. It gives the loops a
+    compact dashboard before they do deeper work:
 
-- control metadata and memory health;
-- ready, maybe and blocked queue counts;
-- recent application folders and Trackly ids;
-- open outreach opportunities and follow-up counts;
-- retrieval index health;
-- stale-state or low-queue warnings.
+    - control metadata and memory health;
+    - ready, maybe and blocked queue counts;
+    - recent application folders and Trackly ids;
+    - open outreach opportunities and follow-up counts;
+    - retrieval index health;
+    - stale-state or low-queue warnings.
 
-It is a convenience snapshot, not a source of truth. If it conflicts with
-Trackly or local Markdown, the loop checks the original source.
+    It is a convenience snapshot, not a source of truth. If it conflicts with
+    Trackly or local Markdown, the loop checks the original source.
 
-### Preference Shape
+??? info "Preference Shape"
 
-`search-preferences.md` is the standing policy file. It tells the loop how to
-rank or reject jobs before spending time on CV tailoring or ATS work.
+    `search-preferences.md` is the standing policy file. It tells the loop how
+    to rank or reject jobs before spending time on CV tailoring or ATS work.
 
-It contains target role families, company and location preferences, seniority
-rules, hard-no constraints, ATS automation notes and approval gates. This is
-where broad rules live, such as preferring AI/data/platform work, avoiding pure
-ML research roles unless the scope is actually platform/tooling, and requiring
-explicit approval before external submission.
+    It contains target role families, company and location preferences,
+    seniority rules, hard-no constraints, ATS automation notes and approval
+    gates. This is where broad rules live, such as preferring AI/data/platform
+    work, avoiding pure ML research roles unless the scope is actually
+    platform/tooling, and requiring explicit approval before external
+    submission.
 
 ## Direct Reads
 
@@ -124,156 +126,158 @@ every turn.
 Direct reads are different from retrieval: Codex opens the source of truth, not
 a derived chunk selected by search.
 
-### Profile Shape
+??? info "Profile Shape"
 
-The "profile" is split into two files because they answer different questions.
+    The "profile" is split into two files because they answer different
+    questions.
 
-| Source | What It Means |
-| --- | --- |
-| `profile-inventory.md` | Evidence inventory for CV strategy: skills, work evidence, project evidence, positioning, guardrails and what can honestly be emphasized. |
-| `application-profile.md` | Reusable application-form answers: personal details, work authorization, education, language answers, recurring ATS answers and consent rules. |
+    | Source | What It Means |
+    | --- | --- |
+    | `profile-inventory.md` | Evidence inventory for CV strategy: skills, work evidence, project evidence, positioning, guardrails and what can honestly be emphasized. |
+    | `application-profile.md` | Reusable application-form answers: personal details, work authorization, education, language answers, recurring ATS answers and consent rules. |
 
-The inventory is used when Codex asks, "what should this CV emphasize for this
-role?" The application profile is used when Codex asks, "what honest answer
-should go into this form field?"
+    The inventory is used when Codex asks, "what should this CV emphasize for
+    this role?" The application profile is used when Codex asks, "what honest
+    answer should go into this form field?"
 
-Neither file is a final CV. The CV is built from them, the role description and
-the application-specific fit analysis.
+    Neither file is a final CV. The CV is built from them, the role description
+    and the application-specific fit analysis.
 
-### Outreach Shape
+??? info "Outreach Shape"
 
-`outreach-log.md` has two levels:
+    `outreach-log.md` has two levels:
 
-| Level | Purpose |
-| --- | --- |
-| Opportunities | One row per worked job where outreach may help, with priority, status, company, role, folder, Trackly id, job URL and reason. |
-| Contacts | One row per person to message, with stable `OUT-*` id, relevance, source, LinkedIn target, ranking reason, draft, sent date, follow-up date and notes. |
+    | Level | Purpose |
+    | --- | --- |
+    | Opportunities | One row per worked job where outreach may help, with priority, status, company, role, folder, Trackly id, job URL and reason. |
+    | Contacts | One row per person to message, with stable `OUT-*` id, relevance, source, LinkedIn target, ranking reason, draft, sent date, follow-up date and notes. |
 
-The Application Loop only creates or updates the opportunity level after a job
-reaches a terminal application state. The Outreach Loop later researches people,
-ranks contacts and drafts messages.
+    The Application Loop only creates or updates the opportunity level after a
+    job reaches a terminal application state. The Outreach Loop later researches
+    people, ranks contacts and drafts messages.
 
 ## Conditional Retrieval
 
 Conditional retrieval is for historical context that may be useful but should
 not be loaded by default.
 
-### Trigger Points
+??? info "Trigger Points"
 
-It runs only at decision points where history can change the answer:
+    It runs only at decision points where history can change the answer:
 
-- same-company checks;
-- prior CV strategy;
-- similar submitted applications;
-- ATS/debug audits;
-- outreach follow-up review.
+    - same-company checks;
+    - prior CV strategy;
+    - similar submitted applications;
+    - ATS/debug audits;
+    - outreach follow-up review.
 
-### Indexed Memory
+??? info "Indexed Memory"
 
-The v1 index includes curated operational Markdown:
+    The v1 index includes curated operational Markdown:
 
-- root workflow files: `job-queue.md`, `search-preferences.md`,
-  `application-profile.md`, `profile-inventory.md` and `outreach-log.md`;
-- application folders: `job.md`, `fit-analysis.md` and `notes.md`.
+    - root workflow files: `job-queue.md`, `search-preferences.md`,
+      `application-profile.md`, `profile-inventory.md` and `outreach-log.md`;
+    - application folders: `job.md`, `fit-analysis.md` and `notes.md`.
 
-It excludes generated or high-noise artifacts:
+    It excludes generated or high-noise artifacts:
 
-- CV PDFs;
-- LaTeX source copied into application folders;
-- LaTeX build logs and auxiliary files;
-- screenshots and form images;
-- generated submission packets and application-form drafts.
+    - CV PDFs;
+    - LaTeX source copied into application folders;
+    - LaTeX build logs and auxiliary files;
+    - screenshots and form images;
+    - generated submission packets and application-form drafts.
 
-Final CV information is preserved through a `## Submitted CV Summary` section in
-each submitted job's `notes.md`. That summary is the memory-friendly
-representation of what was actually sent.
+    Final CV information is preserved through a `## Submitted CV Summary`
+    section in each submitted job's `notes.md`. That summary is the
+    memory-friendly representation of what was actually sent.
 
-### Application Folder Shape
+??? info "Application Folder Shape"
 
-Each worked job has a local folder. The index only uses the files that are
-stable enough to be useful later:
+    Each worked job has a local folder. The index only uses the files that are
+    stable enough to be useful later:
 
-| File | Indexed Meaning |
-| --- | --- |
-| `job.md` | Local copy of the role facts: company, title, location, URL, Trackly id and job description. |
-| `fit-analysis.md` | Decision brief: fit, risks, gaps, CV strategy and why the job was accepted, skipped or abandoned. |
-| `notes.md` | Execution log: ATS details, submission outcome, outreach section, submitted CV summary and follow-up notes. |
+    | File | Indexed Meaning |
+    | --- | --- |
+    | `job.md` | Local copy of the role facts: company, title, location, URL, Trackly id and job description. |
+    | `fit-analysis.md` | Decision brief: fit, risks, gaps, CV strategy and why the job was accepted, skipped or abandoned. |
+    | `notes.md` | Execution log: ATS details, submission outcome, outreach section, submitted CV summary and follow-up notes. |
 
-This is the history retrieval is meant to find. For example, a same-company
-check should retrieve prior folders for that company, while a CV strategy check
-should retrieve similar `fit-analysis.md` sections and submitted CV summaries.
+    This is the history retrieval is meant to find. For example, a same-company
+    check should retrieve prior folders for that company, while a CV strategy
+    check should retrieve similar `fit-analysis.md` sections and submitted CV
+    summaries.
 
-### Retrieval Layers
+??? info "Retrieval Layers"
 
-Retrieval uses exact search first. Semantic search is a fallback, not the
-default path.
+    Retrieval uses exact search first. Semantic search is a fallback, not the
+    default path.
 
-| Layer | Role |
-| --- | --- |
-| SQLite FTS | Exact lookup by company, Trackly id, heading or keyword. |
-| LanceDB RAG | Semantic fallback over curated Markdown chunks. |
+    | Layer | Role |
+    | --- | --- |
+    | SQLite FTS | Exact lookup by company, Trackly id, heading or keyword. |
+    | LanceDB RAG | Semantic fallback over curated Markdown chunks. |
 
-### Context Pack
+??? info "Context Pack"
 
-The Context Pack is the output of conditional retrieval. It is not raw memory
-and it is not a new source of truth.
+    The Context Pack is the output of conditional retrieval. It is not raw
+    memory and it is not a new source of truth.
 
-It should be a short, cited brief that says:
+    It should be a short, cited brief that says:
 
-- which local sections matter;
-- what prior decisions or risks they contain;
-- whether Trackly and local notes conflict;
-- what the active loop should read or decide next.
+    - which local sections matter;
+    - what prior decisions or risks they contain;
+    - whether Trackly and local notes conflict;
+    - what the active loop should read or decide next.
 
-The pack is useful because it lets Codex carry just the relevant history into a
-decision, instead of loading every application folder.
+    The pack is useful because it lets Codex carry just the relevant history
+    into a decision, instead of loading every application folder.
 
-### Retrieval Subagent
+??? info "Retrieval Subagent"
 
-For larger context decisions, Codex can delegate a read-only retrieval subagent.
-The subagent returns a Context Pack with cited headings rather than raw file
-dumps. It may check Trackly for live facts, query SQLite/FTS, use semantic
-fallback when needed and open only the cited Markdown sections required to
-verify the pack.
+    For larger context decisions, Codex can delegate a read-only retrieval
+    subagent. The subagent returns a Context Pack with cited headings rather
+    than raw file dumps. It may check Trackly for live facts, query SQLite/FTS,
+    use semantic fallback when needed and open only the cited Markdown sections
+    required to verify the pack.
 
-The subagent is not allowed to modify files, update Trackly, change outreach
-state, send LinkedIn messages, scrape LinkedIn or click LinkedIn buttons.
+    The subagent is not allowed to modify files, update Trackly, change outreach
+    state, send LinkedIn messages, scrape LinkedIn or click LinkedIn buttons.
 
 ## Freshness And Failure
 
-### Build And Freshness
+??? info "Build And Freshness"
 
-Generated memory artifacts live under:
+    Generated memory artifacts live under:
 
-```text
-applications/
-  current-state.md
-  company-aliases.yml
-  retrieval/
-    chunks.sqlite
-    lancedb/
-```
+    ```text
+    applications/
+      current-state.md
+      company-aliases.yml
+      retrieval/
+        chunks.sqlite
+        lancedb/
+    ```
 
-`company-aliases.yml` keeps company identity consistent across local folders and
-Trackly. Trackly company id wins first, company domain second and aliases last.
-This helps same-company checks avoid treating small naming differences as
-different companies.
+    `company-aliases.yml` keeps company identity consistent across local
+    folders and Trackly. Trackly company id wins first, company domain second
+    and aliases last. This helps same-company checks avoid treating small naming
+    differences as different companies.
 
-If the index is missing or stale, the loop runs:
+    If the index is missing or stale, the loop runs:
 
-```bash
-/Users/dariodm/Documents/ai-managed-documents/scripts/workflow-memory.sh ensure
-```
+    ```bash
+    /Users/dariodm/Documents/ai-managed-documents/scripts/workflow-memory.sh ensure
+    ```
 
-After queue, notes, fit analysis, profile, outreach or alias mutations, the loop
-rebuilds:
+    After queue, notes, fit analysis, profile, outreach or alias mutations, the
+    loop rebuilds:
 
-```bash
-/Users/dariodm/Documents/ai-managed-documents/scripts/workflow-memory.sh build
-```
+    ```bash
+    /Users/dariodm/Documents/ai-managed-documents/scripts/workflow-memory.sh build
+    ```
 
-### Degraded Mode
+??? info "Degraded Mode"
 
-If retrieval fails, the active loop continues. Codex falls back to Trackly,
-always-read files, direct workflow reads and targeted `rg`, then reports that
-memory retrieval is degraded.
+    If retrieval fails, the active loop continues. Codex falls back to Trackly,
+    always-read files, direct workflow reads and targeted `rg`, then reports
+    that memory retrieval is degraded.
