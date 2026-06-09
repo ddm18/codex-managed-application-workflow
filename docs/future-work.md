@@ -1,8 +1,9 @@
 # Future Work
 
 The current workflow now supports role discovery, queue management, CV
-tailoring, reusable answers and human-approved submission. Future work should
-deepen the system without weakening its approval boundary.
+tailoring, reusable answers, human-approved submission and manual outreach
+tracking. Future work should deepen the system without weakening its approval
+boundary.
 
 ## Reusable CV Tracks
 
@@ -42,6 +43,18 @@ expanding it further, review:
 - whether new wording stays consistent with the fixed CV line and guardrails;
 - whether the site links to the correct public repositories and docs;
 - whether screenshots or generated artifacts reveal personal data.
+
+## Outreach Quality
+
+The manual outreach loop should improve signal without adding noise to the
+application loop. Future improvements may include:
+
+- richer contact-source scoring across company pages, engineering blogs and
+  public talks;
+- deduplication of people across multiple roles at the same company;
+- lightweight reply and follow-up analytics;
+- reusable message variants for recruiters, hiring managers, founders and
+  technical team leads.
 
 ## Deeper Automation
 

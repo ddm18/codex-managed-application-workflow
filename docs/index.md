@@ -1,15 +1,16 @@
 # Codex-Managed Application Workflow
 
 > CV submitted through a personal Codex workflow after human approval, with
-> automated job discovery, CV reorganization and application submission. See
-> projects for details.
+> automated job discovery, CV tailoring, application submission and manual
+> outreach tracking. See projects for details.
 
 This site documents the engineering system behind that line: Codex discovers
 relevant roles, manages an active job queue, shows a pre-work brief before
 spending effort on a role, tailors the LaTeX CV only after that gate, reuses a
 private answer bank, prepares the browser application, and submits only after a
-lightweight final approval while keeping evidence, job notes, PDF previews and
-guardrails in one repeatable process.
+lightweight final approval. After terminal application outcomes, it records
+manual outreach opportunities so a separate daily loop can rank people to
+message without slowing the application pipeline.
 
 ## Workflow At A Glance
 
@@ -49,6 +50,12 @@ guardrails in one repeatable process.
     <span class="workflow-step__actor">Codex</span>
     <strong>Submit and update</strong>
   </div>
+  <span class="workflow-arrow" aria-hidden="true"></span>
+  <div class="workflow-step workflow-step--codex">
+    <img class="workflow-step__icon" src="assets/codex-app-icon.png" alt="" />
+    <span class="workflow-step__actor">Codex</span>
+    <strong>Rank outreach</strong>
+  </div>
 </div>
 
 ## Why It Exists
@@ -69,6 +76,8 @@ truthful. The workflow helps:
   boundary.
 - keep the final submit approval short when the earlier pre-work gate already
   accepted the role.
+- track which submitted or closed roles deserve manual LinkedIn outreach and
+  draft ranked messages in a separate daily routine.
 
 ## Current Scope
 
@@ -83,6 +92,7 @@ The current implementation supports:
   bank and application notes;
 - external job-discovery integrations, currently including Trackly;
 - browser-assisted application submission;
+- a central manual outreach log with ranked daily message drafting;
 - explicit human approval before any submission.
 
 It is not intended to fabricate claims, hide gaps, or submit applications

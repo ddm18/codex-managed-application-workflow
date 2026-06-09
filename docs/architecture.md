@@ -16,6 +16,7 @@ database "Profile + Private\nAnswer Bank" as DATA
 queue "Active Job\nQueue" as QUEUE
 component "Codex Orchestrator" as CODEX
 storage "Job Workspace" as APPS
+database "Manual Outreach\nLog" as OUTREACH
 storage "LaTeX CV Source" as CV
 component "TinyTeX / XeLaTeX\nBuild + PDF Preview" as TEX
 component "Browser / ATS" as BROWSER
@@ -26,6 +27,7 @@ CODEX --> QUEUE
 QUEUE --> CODEX
 DATA --> CODEX
 CODEX --> APPS
+CODEX --> OUTREACH
 CODEX --> CV
 CV --> TEX
 TEX --> CODEX
@@ -45,6 +47,7 @@ CODEX --> DOCS
 | `applications/search-preferences.md` | Mutable role, location, ranking and hard-no preferences. |
 | `applications/profile-inventory.md` | Reusable evidence inventory for skills, projects and positioning. |
 | `applications/application-profile.md` | Private reusable answer bank, personal details and form guardrails. |
+| `applications/outreach-log.md` | Central tracker for manual LinkedIn outreach opportunities, ranked contacts, message drafts and follow-up status. |
 | `applications/<job>/` | Archive for worked applications: job notes, fit analysis, tailoring plans, CV source/PDF and submission notes. |
 | `codex-managed-application-workflow/` | Public documentation of the workflow itself. |
 
@@ -58,6 +61,7 @@ CODEX --> DOCS
 | Trackly | External job discovery integration, saved jobs and job metadata. |
 | Codex | File editing, review loops, Codex-executed applications, browser-assisted submission and workflow orchestration. |
 | Browser | Form inspection, form filling and human-approved application submission. |
+| LinkedIn | Manual user-controlled outreach surface; Codex drafts messages and tracks state but does not auto-send or auto-connect. |
 
 ## Data Flow
 
@@ -79,6 +83,10 @@ external job integrations
   -> Codex-executed submission
   -> Trackly/folder update
   -> remove from active queue
+  -> outreach opportunity log
+  -> daily contact research and ranked message drafts
+  -> manual LinkedIn sending
+  -> sent/reply/follow-up status update
 ```
 
 ## Design Principles
@@ -91,4 +99,6 @@ external job integrations
   the specific role.
 - Keep claims evidence-backed and NDA-safe.
 - Use automation for application execution, not for unreviewed submission.
+- Keep outreach outside the application critical path; record intent quickly and
+  do contact research in a separate daily loop.
 - Make the workflow inspectable by future Codex sessions.

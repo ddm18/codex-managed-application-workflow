@@ -7,6 +7,8 @@ role, location/work mode, sponsorship implications and risks before creating a
 package, tailoring the CV or filling forms. Final submission for each job
 remains separately human-approved, but that final gate is intentionally
 lightweight when the earlier pre-work gate already accepted the opportunity.
+Manual LinkedIn outreach is tracked separately: Codex may research public
+contacts and draft messages, but sending, connecting and replying stay manual.
 
 ## Approval Boundary
 
@@ -80,6 +82,24 @@ The practical approval rhythm is:
 3. Final submit gate: "Here is the final artifact and sensitive answers; approve
    the actual submit click?"
 
+## Outreach Boundary
+
+After an application is submitted, skipped or abandoned, Codex may mark the role
+as worth outreach in `applications/outreach-log.md`. That is a lightweight state
+update, not a networking action.
+
+The daily outreach loop may:
+
+- search public web sources for relevant people;
+- prepare LinkedIn search queries or public profile links;
+- rank all sensible contacts;
+- draft short messages and light follow-ups;
+- update rows after the user reports which `OUT-*` ids were actually sent.
+
+It may not auto-send, auto-connect, scrape LinkedIn pages, or click LinkedIn
+buttons. This keeps networking human-controlled and avoids turning the workflow
+into spam automation.
+
 ## Private Application Profile
 
 Personal details and recurring form answers live in a private local Markdown
@@ -122,8 +142,8 @@ That distinction matters.
 The fixed base-CV line is:
 
 > CV submitted through a personal Codex workflow after human approval, with
-> automated job discovery, CV reorganization and application submission. See
-> projects for details.
+> automated job discovery, CV tailoring, application submission and manual
+> outreach tracking. See projects for details.
 
 ## Queue Discipline
 

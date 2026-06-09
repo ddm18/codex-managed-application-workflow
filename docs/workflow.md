@@ -4,7 +4,9 @@ The workflow treats job applications as a persistent queue-driven pipeline:
 discover and rank roles, show a short pre-work brief before spending effort on
 any job, tailor the CV only after that gate, ask for missing data one question
 at a time, save reusable answers, prepare a lightweight final submit check, then
-submit only after final approval.
+submit only after final approval. After an application reaches a terminal
+state, the loop records whether manual outreach is worth doing, while a
+separate daily outreach loop researches people and drafts messages.
 
 ## Execution Sequence
 
@@ -19,6 +21,7 @@ participant "<img:https://raw.githubusercontent.com/ddm18/codex-managed-applicat
 participant "<color:white>Job Queue</color>\n<color:white>and Preferences</color>" as Q #101721
 participant "<color:white>Profile / CV</color>\n<color:white>Evidence Stores</color>" as S #101721
 participant "<color:white>Browser / ATS</color>\n<color:white>Application Flow</color>" as B #101721
+database "<color:white>Manual Outreach</color>\n<color:white>Log</color>" as O #101721
 
 C -> Q: <color:white>Search/refill ready queue</color>
 C -> U: <color:white>Show pre-work brief</color>\n<color:white>company, role, location, risks</color>
@@ -33,6 +36,7 @@ U --> C: <color:white>Approve or request revision</color>
 alt Approved
   C -> B: <color:white>Submit application</color>
   C -> Q: <color:white>Update Trackly/folder</color>\n<color:white>and remove from queue</color>
+  C -> O: <color:white>Record outreach opportunity</color>\n<color:white>without searching LinkedIn</color>
 else Revision requested
   C -> C: <color:white>Revise CV, answers</color>\n<color:white>or attachments</color>
 end
@@ -58,6 +62,7 @@ Active queue shape:
 applications/
   job-queue.md
   search-preferences.md
+  outreach-log.md
 ```
 
 ## 2. Pre-Work Gate
@@ -171,3 +176,20 @@ and the exact submit channel. It must not click final submit/apply/confirm
 unless the user explicitly approves that specific job. After submission or
 skip, Codex updates Trackly and the application folder, then removes the job
 from the active queue.
+
+Before continuing to the next role, Codex performs a lightweight outreach hook.
+For strategically useful roles, it records one `OPP-*` opportunity in
+`applications/outreach-log.md` and adds a short `## Outreach` section to the job
+notes. This hook does not search LinkedIn or draft messages; it only preserves
+enough context for a later daily outreach pass.
+
+## 9. Daily Outreach Loop
+
+The separate `linkedin-outreach-loop` skill reads the outreach log and worked
+application folders, researches public sources for relevant people, ranks all
+sensible contacts and drafts concise LinkedIn messages for manual sending.
+
+Contacts receive stable `OUT-*` ids. After the user sends messages manually,
+they can reply with ids such as `scritto OUT-001, OUT-004`; Codex then marks
+only those contacts as sent and schedules a light follow-up for high-priority
+contacts.
