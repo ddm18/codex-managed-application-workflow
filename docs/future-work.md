@@ -1,13 +1,13 @@
 # Future Work
 
-The current workflow now supports role discovery, queue management, CV
-tailoring, reusable answers, targeted memory retrieval, human-approved
-submission and manual outreach tracking. Future work should deepen the system
-without weakening its approval boundary.
+The current system now supports role discovery, queue management, CV tailoring,
+reusable answers, targeted memory retrieval, human-approved submission and
+manual outreach tracking. Future work should deepen the two-loop model without
+weakening its approval boundary.
 
 ## Reusable CV Tracks
 
-Per-job CV tailoring is already part of the current workflow. Future work here
+Per-job CV tailoring is already part of the Application Loop. Future work here
 means creating reusable starting tracks for recurring role families, so each new
 application can start closer to the target before being tailored to the specific
 job request.
@@ -36,7 +36,7 @@ Future AI-focused variants may include:
 
 ## Portfolio Publication
 
-This MkDocs site is now a public portfolio case study for the workflow. Before
+This MkDocs site is now a public portfolio case study for the system. Before
 expanding it further, review:
 
 - whether any private information appears in examples;
@@ -78,4 +78,4 @@ Possible next steps:
   and form answers;
 - turn submission packets into a consistent rendered artifact;
 - create role-specific prompt templates;
-- connect the workflow to a public portfolio page.
+- connect the system to a public portfolio page.

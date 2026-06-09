@@ -1,16 +1,11 @@
 # Guardrails
 
-The workflow is designed to increase leverage without sacrificing truthfulness
-or control. Codex can search, queue and brief roles freely. Expensive
-application work is gated before it starts: Codex must summarize the company,
-role, location/work mode, sponsorship implications and risks before creating a
-package, tailoring the CV or filling forms. Final submission for each job
-remains separately human-approved, but that final gate is intentionally
-lightweight when the earlier pre-work gate already accepted the opportunity.
-Manual LinkedIn outreach is tracked separately: Codex may research public
-contacts and draft messages, but sending, connecting and replying stay manual.
-The retrieval layer is also bounded: it may find relevant context, but it does
-not override Trackly or Markdown decisions.
+The system is designed to increase leverage without sacrificing truthfulness or
+control. The Application Loop can search, queue and brief roles freely, but
+expensive application work is gated before it starts. The Outreach Loop can
+research public contacts and draft messages, but sending, connecting and
+replying stay manual. The retrieval layer is bounded too: it may find relevant
+context, but it does not override Trackly or Markdown decisions.
 
 ## Approval Boundary
 
@@ -75,7 +70,7 @@ passes, Codex can prepare, inspect, draft and attach without asking again unless
 new missing or sensitive information appears. It can submit through the browser
 or an autoapply channel only after the lightweight final submit gate passes.
 
-This avoids turning the workflow into an uncontrolled application bot.
+This avoids turning the Application Loop into an uncontrolled application bot.
 
 The practical approval rhythm is:
 
@@ -99,8 +94,8 @@ The daily outreach loop may:
 - update rows after the user reports which `OUT-*` ids were actually sent.
 
 It may not auto-send, auto-connect, scrape LinkedIn pages, or click LinkedIn
-buttons. This keeps networking human-controlled and avoids turning the workflow
-into spam automation.
+buttons. This keeps networking human-controlled and avoids turning the Outreach
+Loop into spam automation.
 
 ## Memory Boundary
 
@@ -129,7 +124,7 @@ same application.
 
 ## NDA-Safe Wording
 
-For NDA-covered work, the workflow prefers anonymous but concrete phrasing:
+For NDA-covered work, the system prefers anonymous but concrete phrasing:
 
 - enterprise client environments;
 - internal/external API integrations;
@@ -152,9 +147,8 @@ This prevents the CV from becoming a broad keyword list.
 
 ## No False Automation Claims
 
-The workflow can state that the CV was reorganized and submitted through a
-personal Codex-managed process, but it should also state that submission
-required human approval.
+The CV can state that the application workflow is LLM-assisted, but it should
+also state that submission required human approval.
 
 That distinction matters.
 

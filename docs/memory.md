@@ -1,11 +1,11 @@
 # Memory And Retrieval
 
-The workflow now has a local memory layer, but it does not replace the original
-sources of truth. Trackly remains authoritative for live job-posting facts and
-external application status. Markdown remains authoritative for local decisions,
-CV work, notes, outreach and reusable personal/profile data. The retrieval
-index is a derived map that helps Codex fetch only the right context instead of
-loading the whole application archive.
+The two loops share a local memory layer, but that layer does not replace the
+original sources of truth. Trackly remains authoritative for live job-posting
+facts and external application status. Markdown remains authoritative for local
+decisions, CV work, notes, outreach and reusable personal/profile data. The
+retrieval index is a derived map that helps Codex fetch only the right context
+instead of loading the whole application archive.
 
 ## Memory Shape
 
@@ -17,7 +17,7 @@ historical chunks only when a decision needs them.
 left to right direction
 scale 0.72
 
-component "Codex job /\noutreach loop" as LOOP #101721
+component "Codex\napplication or\noutreach loop" as LOOP #101721
 cloud "Trackly\nlive job facts\nand external status" as TRACKLY #0B1018
 
 package "Omnipresent Context\nread directly at loop start" as ALWAYS #0E2A25 {
@@ -26,7 +26,7 @@ package "Omnipresent Context\nread directly at loop start" as ALWAYS #0E2A25 {
   storage "search-preferences.md\nranking and hard-no rules" as PREFS #102821
 }
 
-package "Workflow-Canonical Reads\nread directly when that workflow needs them" as DIRECT #172036 {
+package "Loop-Canonical Reads\nread directly when that loop needs them" as DIRECT #172036 {
   storage "profile-inventory.md\napplication-profile.md\nbase CV and answer evidence" as PROFILE #111A26
   storage "outreach-log.md\nmanual outreach state" as OUTREACH #111A26
 }
@@ -146,6 +146,6 @@ state, send LinkedIn messages, scrape LinkedIn or click LinkedIn buttons.
 
 ## Degraded Mode
 
-If retrieval fails, the workflow continues. Codex falls back to Trackly,
+If retrieval fails, the active loop continues. Codex falls back to Trackly,
 `job-queue.md`, `search-preferences.md`, `outreach-log.md`, targeted `rg` and
 specific application folders, and reports that memory retrieval is degraded.

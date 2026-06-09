@@ -1,120 +1,85 @@
-# Codex-Managed Application Workflow
+# LLM-Assisted Application Workflow
 
-> CV submitted through a personal LLM-assisted workflow after human approval, with
-> automated discovery, RAG-guided CV tailoring, browser submission and
+> CV submitted through a personal LLM-assisted workflow after human approval,
+> with automated discovery, RAG-guided CV tailoring, browser submission and
 > manual outreach tracking. See projects for details.
 
-This site documents the engineering system behind that line: Codex discovers
-relevant roles, manages an active job queue, shows a pre-work brief before
-spending effort on a role, tailors the LaTeX CV only after that gate, reuses a
-private answer bank, retrieves only targeted historical context, prepares the
-browser application, and submits only after a lightweight final approval. After
-terminal application outcomes, it records manual outreach opportunities so a
-separate daily loop can rank people to message without slowing the application
-pipeline.
+This site documents a two-loop system for job search work:
 
-## Workflow At A Glance
+- an **Application Loop** that discovers roles, gates work early, tailors the
+  CV, prepares applications and submits only after approval;
+- an **Outreach Loop** that runs separately after applications, ranks sensible
+  people to message and tracks manual LinkedIn follow-up.
 
-<div class="workflow-strip" role="img" aria-label="Codex-managed job application workflow">
-  <div class="workflow-step workflow-step--codex">
-    <img class="workflow-step__icon" src="assets/codex-app-icon.png" alt="" />
-    <span class="workflow-step__actor">Codex</span>
-    <strong>Find and queue jobs</strong>
-  </div>
-  <span class="workflow-arrow" aria-hidden="true"></span>
-  <div class="workflow-step workflow-step--user">
-    <img class="workflow-step__icon" src="assets/user-icon.svg" alt="" />
-    <span class="workflow-step__actor">user</span>
-    <strong>Accept pre-work brief</strong>
-  </div>
-  <span class="workflow-arrow" aria-hidden="true"></span>
-  <div class="workflow-step workflow-step--codex">
-    <img class="workflow-step__icon" src="assets/codex-app-icon.png" alt="" />
-    <span class="workflow-step__actor">Codex</span>
-    <strong>Tailor CV to role</strong>
-  </div>
-  <span class="workflow-arrow" aria-hidden="true"></span>
-  <div class="workflow-step workflow-step--codex">
-    <img class="workflow-step__icon" src="assets/codex-app-icon.png" alt="" />
-    <span class="workflow-step__actor">Codex</span>
-    <strong>Ask and save answers</strong>
-  </div>
-  <span class="workflow-arrow" aria-hidden="true"></span>
-  <div class="workflow-step workflow-step--user">
-    <img class="workflow-step__icon" src="assets/user-icon.svg" alt="" />
-    <span class="workflow-step__actor">user</span>
-    <strong>Approve packet</strong>
-  </div>
-  <span class="workflow-arrow" aria-hidden="true"></span>
-  <div class="workflow-step workflow-step--codex">
-    <img class="workflow-step__icon" src="assets/codex-app-icon.png" alt="" />
-    <span class="workflow-step__actor">Codex</span>
-    <strong>Submit and update</strong>
-  </div>
-  <span class="workflow-arrow" aria-hidden="true"></span>
-  <div class="workflow-step workflow-step--codex">
-    <img class="workflow-step__icon" src="assets/codex-app-icon.png" alt="" />
-    <span class="workflow-step__actor">Codex</span>
-    <strong>Eventual outreach</strong>
-  </div>
-</div>
+Both loops share the same local Markdown memory and the same approval boundary.
+The point is leverage without pretending the system is autonomous: Codex can
+prepare and execute approved work, but applications and networking remain
+human-controlled.
 
-## Why It Exists
+## System Map
 
-The objective is to make job applications faster without making them less
-truthful. The workflow helps:
+```plantuml
+@startuml
+left to right direction
+scale 0.76
 
-- tailor a LaTeX CV to a specific job description;
-- use external job-discovery integrations to find relevant roles;
-- maintain an active queue of ready, maybe and blocked opportunities;
-- use a local retrieval index to fetch relevant historical notes without loading
-  the whole archive;
-- avoid wasting CV/form work on roles that fail location, work-mode,
-  sponsorship or compensation preferences;
-- preserve evidence-backed claims;
-- reuse progressively accumulated private application data for forms;
-- track job-specific reasoning and fit analysis;
-- compile and preview the final PDF locally;
-- complete and submit application forms with a human-in-the-loop approval
-  boundary.
-- keep the final submit approval short when the earlier pre-work gate already
-  accepted the role.
-- track which submitted or closed roles deserve manual LinkedIn outreach and
-  draft ranked messages in a separate daily routine.
+actor "Dario" as U
+component "Application Loop\nsearch, gate, CV,\nsubmit, update" as APP #101721
+component "Outreach Loop\nresearch, rank,\ndraft, follow up" as OUT #101721
+database "Shared Memory\ncurrent state, queue,\nprofile, outreach log,\nSQLite + RAG" as MEM #171923
+cloud "Trackly\njob facts and status" as TRACKLY #0B1018
+storage "LaTeX CV\nsource + PDF" as CV #151923
+cloud "LinkedIn\nmanual sending only" as LINKEDIN #0B1018
+
+U --> APP : approves roles\nand submissions
+U --> OUT : chooses who\nto message
+APP --> MEM : reads/writes\njob state
+OUT --> MEM : reads/writes\noutreach state
+APP --> TRACKLY : searches and\nupdates jobs
+APP --> CV : tailors and\nbuilds PDF
+OUT --> LINKEDIN : prepares manual\nmessage targets
+MEM --> APP : compact state +\ntargeted context
+MEM --> OUT : open opportunities +\nfollow-up context
+@enduml
+```
+
+## The Two Loops
+
+| Loop | Purpose | Main Output |
+| --- | --- | --- |
+| [Application Loop](application-loop.md) | Find relevant jobs, decide whether each is worth work, tailor the CV, prepare the application and submit only after approval. | Submitted or closed applications, notes, submitted CV summaries and outreach opportunities. |
+| [Outreach Loop](outreach-loop.md) | Review worked applications, find relevant people, rank contacts, draft short LinkedIn messages and track manual follow-up. | Ranked `OUT-*` contacts, message drafts, sent/reply/follow-up status. |
+
+## Shared Layers
+
+| Layer | What It Does |
+| --- | --- |
+| [Memory](memory.md) | Separates always-read context from conditional RAG retrieval. |
+| [Architecture](architecture.md) | Shows the file, tool and data boundaries behind the two loops. |
+| [Guardrails](guardrails.md) | Defines approval, truthfulness, privacy and LinkedIn boundaries. |
+| [Implementation Reference](implementation-reference.md) | Lists canonical files, generated artifacts, scripts and skills. |
 
 ## Current Scope
 
 The current implementation supports:
 
 - a Git-backed LaTeX CV synchronized with Overleaf;
-- local PDF compilation through TinyTeX;
-- a persistent Markdown job queue and mutable search preferences;
-- per-job CV tailoring from the base CV, reusable evidence inventory and job
-  requirements after a pre-work acceptance gate;
-- structured profile inventory, private application profile, reusable answer
-  bank and application notes;
-- a local memory layer with `current-state.md`, SQLite FTS, LanceDB semantic
-  fallback and stable company aliases;
-- external job-discovery integrations, currently including Trackly;
-- browser-assisted application submission;
-- a central manual outreach log with ranked daily message drafting;
-- explicit human approval before any submission.
+- local PDF compilation through TinyTeX/XeLaTeX;
+- Trackly-assisted job discovery and status updates;
+- a persistent Markdown queue, search preferences and application archive;
+- RAG-guided retrieval over curated Markdown memory;
+- browser-assisted application submission after approval;
+- a central manual outreach log with daily ranked message drafting.
 
-It is not intended to fabricate claims, hide gaps, or submit applications
-without review.
+It is not intended to fabricate claims, hide gaps, submit applications without
+review, auto-send LinkedIn messages or turn networking into spam automation.
 
 ## Start Here
 
-If you want to understand the system quickly, read the pages in this order:
+Read these pages in order:
 
-1. [Workflow](workflow.md)
-2. [Architecture](architecture.md)
+1. [Application Loop](application-loop.md)
+2. [Outreach Loop](outreach-loop.md)
 3. [Memory](memory.md)
 4. [Guardrails](guardrails.md)
-5. [Future Work](future-work.md)
-
-!!! tip "Reading mode"
-    The workflow page explains the operational path. The architecture page
-    explains the file and tool boundaries. The memory page explains targeted
-    retrieval. The guardrails page explains what Codex is allowed to do, and
-    where human approval becomes mandatory.
+5. [Implementation Reference](implementation-reference.md)

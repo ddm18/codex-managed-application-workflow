@@ -1,5 +1,5 @@
-site_name: Codex-Managed Application Workflow
-site_description: Queue-driven, human-approved CV tailoring, application submission and manual outreach tracking workflow managed through Codex.
+site_name: LLM-Assisted Application Workflow
+site_description: Human-approved job application and outreach workflows with shared Markdown memory, RAG-guided CV tailoring and manual networking controls.
 site_author: user
 site_url: https://ddm18.github.io/codex-managed-application-workflow/
 
@@ -41,10 +41,12 @@ plugins:
 
 nav:
   - Home: index.md
-  - Workflow: workflow.md
-  - Architecture: architecture.md
+  - Application Loop: application-loop.md
+  - Outreach Loop: outreach-loop.md
   - Memory: memory.md
+  - Architecture: architecture.md
   - Guardrails: guardrails.md
+  - Implementation Reference: implementation-reference.md
   - Future Work: future-work.md
 
 markdown_extensions:
