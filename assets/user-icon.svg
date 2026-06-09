@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">User</title>
+  <defs>
+    <linearGradient id="userGlow" x1="8" x2="56" y1="8" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f5f7fa"/>
+      <stop offset="0.58" stop-color="#8c96a8"/>
+      <stop offset="1" stop-color="#e21d3f"/>
+    </linearGradient>
+  </defs>
+  <circle cx="32" cy="32" r="28" fill="#201016" stroke="url(#userGlow)" stroke-width="3"/>
+  <circle cx="32" cy="24" r="9" fill="#f5f7fa"/>
+  <path fill="#f5f7fa" d="M16 50c2.9-9.2 8.4-14 16-14s13.1 4.8 16 14H16Z"/>
+</svg>
