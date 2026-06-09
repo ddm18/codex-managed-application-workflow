@@ -19,9 +19,9 @@ actor "<color:white>Dario</color>" as U
 participant "<color:white>Codex</color>\n<color:white>Outreach Loop</color>" as C #101721
 database "<color:white>Shared Memory</color>" as M #101721
 database "<color:white>Outreach Log</color>" as O #101721
-storage "<color:white>Application Notes</color>" as N #101721
-cloud "<color:white>Public Web Sources</color>" as W #0B1018
-cloud "<color:white>LinkedIn</color>\n<color:white>manual only</color>" as L #0B1018
+participant "<color:white>Application Notes</color>" as N #101721
+participant "<color:white>Public Sources</color>" as W #101721
+participant "<color:white>LinkedIn Manual</color>" as L #101721
 
 C -> M: <color:white>Read current-state and retrieval context</color>
 C -> O: <color:white>Read open OPP/OUT items</color>
