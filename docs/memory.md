@@ -31,8 +31,10 @@ package "Direct Reads" as DIRECT #172036 {
 }
 
 package "Conditional Retrieval" as RETRIEVAL #201016 {
-  database "SQLite FTS" as FTS #171923
-  database "LanceDB RAG" as RAG #171923
+  package "Derived Retrieval Index" as INDEX #171923 {
+    database "SQLite FTS" as FTS #101721
+    database "LanceDB RAG" as RAG #101721
+  }
   storage "Context Pack" as PACK #151923
 }
 
@@ -42,8 +44,7 @@ ALWAYS --> LOOP
 DIRECT --> LOOP
 TRACKLY --> LOOP
 LOOP ..> RETRIEVAL
-FTS --> PACK
-RAG --> PACK
+INDEX --> PACK
 PACK ..> LOOP
 @enduml
 ```
@@ -168,9 +169,13 @@ not be loaded by default.
 | ATS/debug audit | Prior `notes.md` sections about form fields, browser failures, verification issues or submission outcomes. | The likely source sections to inspect before retrying or abandoning. |
 | Outreach review | `outreach-log.md`, job `notes.md#Outreach` and relevant high-fit applications. | Outreach opportunities, follow-up state or contact-message context. |
 
-??? info "Indexed Sources"
+??? info "Retrieval Index Scope"
 
-    The v1 index includes curated operational Markdown:
+    These files remain Markdown sources of truth. The index is only a derived
+    lookup layer over selected sections, queried when conditional retrieval is
+    needed.
+
+    The v1 retrieval index includes curated operational Markdown:
 
     - root workflow files: `job-queue.md`, `search-preferences.md`,
       `application-profile.md`, `profile-inventory.md` and `outreach-log.md`;
