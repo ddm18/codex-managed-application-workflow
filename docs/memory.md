@@ -7,6 +7,53 @@ CV work, notes, outreach and reusable personal/profile data. The retrieval
 index is a derived map that helps Codex fetch only the right context instead of
 loading the whole application archive.
 
+## Memory Shape
+
+The loop keeps a small always-read context in front of Codex, then retrieves
+historical chunks only when a decision needs them.
+
+```plantuml
+@startuml
+left to right direction
+scale 0.72
+
+component "Codex job /\noutreach loop" as LOOP #101721
+cloud "Trackly\nlive job facts\nand external status" as TRACKLY #0B1018
+
+package "Omnipresent Context\nread directly at loop start" as ALWAYS #0E2A25 {
+  storage "current-state.md\ncompact snapshot" as STATE #102821
+  queue "job-queue.md\nactive worklist" as QUEUE #102821
+  storage "search-preferences.md\nranking and hard-no rules" as PREFS #102821
+}
+
+package "Workflow-Canonical Reads\nread directly when that workflow needs them" as DIRECT #172036 {
+  storage "profile-inventory.md\napplication-profile.md\nbase CV and answer evidence" as PROFILE #111A26
+  storage "outreach-log.md\nmanual outreach state" as OUTREACH #111A26
+}
+
+package "Conditional Retrieval\nonly at historical decision points" as CONDITIONAL #201016 {
+  database "SQLite FTS\ncompany, id, heading,\nkeyword lookup" as FTS #171923
+  database "LanceDB RAG fallback\nsemantic lookup over\ncurated Markdown chunks" as RAG #171923
+  storage "Compact context pack\n5-12 cited chunks,\nnot raw archive dumps" as PACK #151923
+}
+
+LOOP --> ALWAYS : always loaded
+LOOP --> DIRECT : loaded by task type
+LOOP --> TRACKLY : live checks
+LOOP ..> CONDITIONAL : only when history matters
+FTS --> PACK
+RAG --> PACK
+PACK --> LOOP : cited context
+
+note bottom of CONDITIONAL
+  Examples: same-company checks,
+  prior CV strategy, ATS/debug audits,
+  outreach follow-up review.
+end note
+@enduml
+```
+{: .memory-diagram }
+
 ## Source Boundaries
 
 | Source | Role |
