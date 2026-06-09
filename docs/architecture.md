@@ -49,17 +49,54 @@ OUTLOOP --> LINKEDIN
 ```
 {: .architecture-diagram }
 
-## Component Boundaries
+## Codex Orchestration
 
-| Component | Boundary |
+This is the active agent layer. It contains two loops with different
+responsibilities.
+
+| Loop | Responsibility |
 | --- | --- |
-| Application Loop | Owns job discovery, pre-work brief, CV tailoring, application preparation, approval and terminal job updates. |
-| Outreach Loop | Owns contact research, ranking, message drafts, sent status and follow-up status. |
-| Local Persistence | Stores human-readable operational state, notes, evidence and CV source. |
-| Derived Memory | Provides compact state, exact search and RAG fallback; not authoritative. |
-| Trackly | Authoritative for live job-posting facts and external status. |
-| Browser / ATS | Used only after pre-work approval; final submit requires explicit approval. |
-| LinkedIn | Manual surface only; Codex may draft and track, not send or connect. |
+| Application Loop | Finds jobs, shows the pre-work brief, tailors the CV, prepares the application, asks for final approval and updates terminal job state. |
+| Outreach Loop | Reviews outreach opportunities, researches public contacts, ranks people, drafts messages and records manual sending/follow-up state. |
+
+The split matters because outreach should not slow down the application critical
+path. The Application Loop only records whether outreach is worth doing; the
+Outreach Loop handles contact research later.
+
+## Local Persistence
+
+Local Persistence is the human-readable record of the workflow. It stores
+operational state, decisions, notes, CV evidence, outreach rows and CV source
+workspaces.
+
+This layer is authoritative for local decisions: skipped roles, blockers,
+outreach status, CV strategy notes and user-provided profile facts live here.
+The exact file names are listed in the Implementation Reference.
+
+## Derived Memory
+
+Derived Memory is generated from Local Persistence. It exists to help Codex find
+the right context quickly; it does not replace the underlying records.
+
+It has three responsibilities:
+
+- `Compact State`: a small first-read snapshot for both loops.
+- `Exact Search`: deterministic lookup by company, id, heading or keyword.
+- `RAG Fallback`: semantic retrieval when exact search is not enough.
+
+The output of this layer is a context pack, not a database transaction or a new
+source of truth.
+
+## External Systems
+
+External systems sit at the boundary of the workflow.
+
+| System | Boundary |
+| --- | --- |
+| Trackly | Live job facts, job discovery and external application status. |
+| Browser / ATS | Application form inspection, filling and approved submission. |
+| PDF Builder | Local CV compilation and page-count checks. |
+| LinkedIn | Manual networking surface; Codex may draft and track, not send or connect. |
 
 ## Data Flow
 
