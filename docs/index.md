@@ -16,32 +16,87 @@ The point is leverage without pretending the system is autonomous: Codex can
 prepare and execute approved work, but applications and networking remain
 human-controlled.
 
-## System Map
+## Loops At A Glance
 
-```plantuml
-@startuml
-left to right direction
-scale 0.76
+Application Loop:
 
-actor "Dario" as U
-component "Application Loop\nsearch, gate, CV,\nsubmit, update" as APP #101721
-component "Outreach Loop\nresearch, rank,\ndraft, follow up" as OUT #101721
-database "Shared Memory\ncurrent state, queue,\nprofile, outreach log,\nSQLite + RAG" as MEM #171923
-cloud "Trackly\njob facts and status" as TRACKLY #0B1018
-storage "LaTeX CV\nsource + PDF" as CV #151923
-cloud "LinkedIn\nmanual sending only" as LINKEDIN #0B1018
+<div class="workflow-strip" role="img" aria-label="Application loop overview">
+  <div class="workflow-step workflow-step--codex">
+    <img class="workflow-step__icon" src="assets/codex-app-icon.png" alt="" />
+    <span class="workflow-step__actor">Codex</span>
+    <strong>Find and queue jobs</strong>
+  </div>
+  <span class="workflow-arrow" aria-hidden="true"></span>
+  <div class="workflow-step workflow-step--user">
+    <img class="workflow-step__icon" src="assets/user-icon.svg" alt="" />
+    <span class="workflow-step__actor">Dario</span>
+    <strong>Accept pre-work brief</strong>
+  </div>
+  <span class="workflow-arrow" aria-hidden="true"></span>
+  <div class="workflow-step workflow-step--codex">
+    <img class="workflow-step__icon" src="assets/codex-app-icon.png" alt="" />
+    <span class="workflow-step__actor">Codex</span>
+    <strong>Tailor CV to role</strong>
+  </div>
+  <span class="workflow-arrow" aria-hidden="true"></span>
+  <div class="workflow-step workflow-step--codex">
+    <img class="workflow-step__icon" src="assets/codex-app-icon.png" alt="" />
+    <span class="workflow-step__actor">Codex</span>
+    <strong>Prepare application</strong>
+  </div>
+  <span class="workflow-arrow" aria-hidden="true"></span>
+  <div class="workflow-step workflow-step--user">
+    <img class="workflow-step__icon" src="assets/user-icon.svg" alt="" />
+    <span class="workflow-step__actor">Dario</span>
+    <strong>Approve submit</strong>
+  </div>
+  <span class="workflow-arrow" aria-hidden="true"></span>
+  <div class="workflow-step workflow-step--codex">
+    <img class="workflow-step__icon" src="assets/codex-app-icon.png" alt="" />
+    <span class="workflow-step__actor">Codex</span>
+    <strong>Submit and update</strong>
+  </div>
+</div>
 
-U --> APP : approves roles\nand submissions
-U --> OUT : chooses who\nto message
-APP --> MEM : reads/writes\njob state
-OUT --> MEM : reads/writes\noutreach state
-APP --> TRACKLY : searches and\nupdates jobs
-APP --> CV : tailors and\nbuilds PDF
-OUT --> LINKEDIN : prepares manual\nmessage targets
-MEM --> APP : compact state +\ntargeted context
-MEM --> OUT : open opportunities +\nfollow-up context
-@enduml
-```
+Outreach Loop:
+
+<div class="workflow-strip" role="img" aria-label="Outreach loop overview">
+  <div class="workflow-step workflow-step--codex">
+    <img class="workflow-step__icon" src="assets/codex-app-icon.png" alt="" />
+    <span class="workflow-step__actor">Codex</span>
+    <strong>Review opportunities</strong>
+  </div>
+  <span class="workflow-arrow" aria-hidden="true"></span>
+  <div class="workflow-step workflow-step--codex">
+    <img class="workflow-step__icon" src="assets/codex-app-icon.png" alt="" />
+    <span class="workflow-step__actor">Codex</span>
+    <strong>Research contacts</strong>
+  </div>
+  <span class="workflow-arrow" aria-hidden="true"></span>
+  <div class="workflow-step workflow-step--codex">
+    <img class="workflow-step__icon" src="assets/codex-app-icon.png" alt="" />
+    <span class="workflow-step__actor">Codex</span>
+    <strong>Rank sensible people</strong>
+  </div>
+  <span class="workflow-arrow" aria-hidden="true"></span>
+  <div class="workflow-step workflow-step--codex">
+    <img class="workflow-step__icon" src="assets/codex-app-icon.png" alt="" />
+    <span class="workflow-step__actor">Codex</span>
+    <strong>Draft messages</strong>
+  </div>
+  <span class="workflow-arrow" aria-hidden="true"></span>
+  <div class="workflow-step workflow-step--user">
+    <img class="workflow-step__icon" src="assets/user-icon.svg" alt="" />
+    <span class="workflow-step__actor">Dario</span>
+    <strong>Send manually</strong>
+  </div>
+  <span class="workflow-arrow" aria-hidden="true"></span>
+  <div class="workflow-step workflow-step--codex">
+    <img class="workflow-step__icon" src="assets/codex-app-icon.png" alt="" />
+    <span class="workflow-step__actor">Codex</span>
+    <strong>Track follow-up</strong>
+  </div>
+</div>
 
 ## The Two Loops
 
