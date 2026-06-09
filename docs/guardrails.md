@@ -160,8 +160,8 @@ That distinction matters.
 
 The fixed base-CV line is:
 
-> CV submitted through a personal Codex workflow after human approval, with
-> automated discovery, retrieval-guided CV tailoring, browser submission and
+> CV submitted through a personal LLM-assisted workflow after human approval, with
+> automated discovery, RAG-guided CV tailoring, browser submission and
 > manual outreach tracking. See projects for details.
 
 ## Queue Discipline
