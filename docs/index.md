@@ -55,7 +55,7 @@ pipeline.
   <div class="workflow-step workflow-step--codex">
     <img class="workflow-step__icon" src="assets/codex-app-icon.png" alt="" />
     <span class="workflow-step__actor">Codex</span>
-    <strong>Rank outreach</strong>
+    <strong>Eventual outreach</strong>
   </div>
 </div>
 
