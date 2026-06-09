@@ -43,6 +43,7 @@ nav:
   - Home: index.md
   - Workflow: workflow.md
   - Architecture: architecture.md
+  - Memory: memory.md
   - Guardrails: guardrails.md
   - Future Work: future-work.md
 

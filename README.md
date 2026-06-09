@@ -1,6 +1,8 @@
 # Codex-Managed Application Workflow Docs
 
-MkDocs documentation for the Codex-managed CV and job-application workflow.
+MkDocs documentation for the Codex-managed CV and job-application workflow,
+including the local memory/retrieval layer used to keep long-running job-search
+context targeted.
 
 ## Local Environment
 

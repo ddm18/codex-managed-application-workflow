@@ -1,16 +1,17 @@
 # Codex-Managed Application Workflow
 
 > CV submitted through a personal Codex workflow after human approval, with
-> automated job discovery, CV tailoring, application submission and manual
-> outreach tracking. See projects for details.
+> automated discovery, retrieval-guided CV tailoring, browser submission and
+> manual outreach tracking. See projects for details.
 
 This site documents the engineering system behind that line: Codex discovers
 relevant roles, manages an active job queue, shows a pre-work brief before
 spending effort on a role, tailors the LaTeX CV only after that gate, reuses a
-private answer bank, prepares the browser application, and submits only after a
-lightweight final approval. After terminal application outcomes, it records
-manual outreach opportunities so a separate daily loop can rank people to
-message without slowing the application pipeline.
+private answer bank, retrieves only targeted historical context, prepares the
+browser application, and submits only after a lightweight final approval. After
+terminal application outcomes, it records manual outreach opportunities so a
+separate daily loop can rank people to message without slowing the application
+pipeline.
 
 ## Workflow At A Glance
 
@@ -66,6 +67,8 @@ truthful. The workflow helps:
 - tailor a LaTeX CV to a specific job description;
 - use external job-discovery integrations to find relevant roles;
 - maintain an active queue of ready, maybe and blocked opportunities;
+- use a local retrieval index to fetch relevant historical notes without loading
+  the whole archive;
 - avoid wasting CV/form work on roles that fail location, work-mode,
   sponsorship or compensation preferences;
 - preserve evidence-backed claims;
@@ -90,6 +93,8 @@ The current implementation supports:
   requirements after a pre-work acceptance gate;
 - structured profile inventory, private application profile, reusable answer
   bank and application notes;
+- a local memory layer with `current-state.md`, SQLite FTS, LanceDB semantic
+  fallback and stable company aliases;
 - external job-discovery integrations, currently including Trackly;
 - browser-assisted application submission;
 - a central manual outreach log with ranked daily message drafting;
@@ -104,10 +109,12 @@ If you want to understand the system quickly, read the pages in this order:
 
 1. [Workflow](workflow.md)
 2. [Architecture](architecture.md)
-3. [Guardrails](guardrails.md)
-4. [Future Work](future-work.md)
+3. [Memory](memory.md)
+4. [Guardrails](guardrails.md)
+5. [Future Work](future-work.md)
 
 !!! tip "Reading mode"
     The workflow page explains the operational path. The architecture page
-    explains the file and tool boundaries. The guardrails page explains what
-    Codex is allowed to do, and where human approval becomes mandatory.
+    explains the file and tool boundaries. The memory page explains targeted
+    retrieval. The guardrails page explains what Codex is allowed to do, and
+    where human approval becomes mandatory.

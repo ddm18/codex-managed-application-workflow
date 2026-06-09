@@ -1,9 +1,9 @@
 # Future Work
 
 The current workflow now supports role discovery, queue management, CV
-tailoring, reusable answers, human-approved submission and manual outreach
-tracking. Future work should deepen the system without weakening its approval
-boundary.
+tailoring, reusable answers, targeted memory retrieval, human-approved
+submission and manual outreach tracking. Future work should deepen the system
+without weakening its approval boundary.
 
 ## Reusable CV Tracks
 
@@ -56,6 +56,18 @@ application loop. Future improvements may include:
 - reusable message variants for recruiters, hiring managers, founders and
   technical team leads.
 
+## Memory Quality
+
+The retrieval layer is now useful enough for loop operations. Future work should
+focus on quality rather than scope creep:
+
+- stale-alias warnings when Trackly ids, domains or company names drift;
+- richer same-company summaries across multiple applications;
+- targeted regression tests for CV strategy, outreach, ATS/debug and queue
+  fallback scenarios;
+- better summaries of submitted CV variants without indexing PDFs or LaTeX
+  artifacts.
+
 ## Deeper Automation
 
 Possible next steps:
@@ -64,7 +76,6 @@ Possible next steps:
 - add richer search/ranking analytics across Trackly batches;
 - keep expanding the private application profile with recurring personal data
   and form answers;
-- keep a changelog of CV variants;
 - turn submission packets into a consistent rendered artifact;
 - create role-specific prompt templates;
 - connect the workflow to a public portfolio page.

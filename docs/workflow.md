@@ -6,7 +6,9 @@ any job, tailor the CV only after that gate, ask for missing data one question
 at a time, save reusable answers, prepare a lightweight final submit check, then
 submit only after final approval. After an application reaches a terminal
 state, the loop records whether manual outreach is worth doing, while a
-separate daily outreach loop researches people and drafts messages.
+separate daily outreach loop researches people and drafts messages. A derived
+local memory layer keeps the context targeted: the loop reads compact state
+first and retrieves historical chunks only when a decision needs them.
 
 ## Execution Sequence
 
@@ -19,11 +21,13 @@ autonumber "<font color=white><b>#</b></font>"
 actor "<color:white>user</color>" as U
 participant "<img:https://raw.githubusercontent.com/ddm18/codex-managed-application-workflow/main/docs/assets/codex-app-icon.png{scale=0.42}>\n<color:white>Codex</color>" as C #101721
 participant "<color:white>Job Queue</color>\n<color:white>and Preferences</color>" as Q #101721
+database "<color:white>Memory</color>\n<color:white>and Retrieval</color>" as M #101721
 participant "<color:white>Profile / CV</color>\n<color:white>Evidence Stores</color>" as S #101721
 participant "<color:white>Browser / ATS</color>\n<color:white>Application Flow</color>" as B #101721
 database "<color:white>Manual Outreach</color>\n<color:white>Log</color>" as O #101721
 
 C -> Q: <color:white>Search/refill ready queue</color>
+C -> M: <color:white>Read compact state</color>\n<color:white>and targeted context</color>
 C -> U: <color:white>Show pre-work brief</color>\n<color:white>company, role, location, risks</color>
 U --> C: <color:white>Accept or skip before CV work</color>
 C -> S: <color:white>Create job workspace</color>\n<color:white>and tailor CV to role</color>
@@ -36,6 +40,7 @@ U --> C: <color:white>Approve or request revision</color>
 alt Approved
   C -> B: <color:white>Submit application</color>
   C -> Q: <color:white>Update Trackly/folder</color>\n<color:white>and remove from queue</color>
+  C -> M: <color:white>Rebuild derived memory</color>
   C -> O: <color:white>Record outreach opportunity</color>\n<color:white>without searching LinkedIn</color>
 else Revision requested
   C -> C: <color:white>Revise CV, answers</color>\n<color:white>or attachments</color>
@@ -60,10 +65,15 @@ Active queue shape:
 
 ```text
 applications/
+  current-state.md
   job-queue.md
   search-preferences.md
   outreach-log.md
 ```
+
+The queue is not reconstructed through vector search. At loop start Codex reads
+`current-state.md`, `job-queue.md` and `search-preferences.md` directly, then
+ensures the retrieval index only if it is missing or stale.
 
 ## 2. Pre-Work Gate
 
@@ -79,6 +89,11 @@ Before creating a job package, Codex summarizes:
 If the role is outside preferences, such as UK remote with sponsorship, Poland
 relocation, weak compensation or a pure full-remote setup, this gate happens
 before any CV or form work. The user can reject the role and the loop moves on.
+
+For same-company decisions, Codex checks Trackly for live job facts and local
+Markdown for prior local decisions. The brief must show previous roles/statuses,
+whether the new role is meaningfully different, spray-and-pray risk and a clear
+apply, wait, skip or replace recommendation.
 
 ## 3. Job Package
 
@@ -103,6 +118,11 @@ applications/
 Codex reads the reusable profile inventory before proposing CV changes. The
 inventory stores skills, projects, work evidence, preferences and guardrails
 that may not all belong in the base CV.
+
+For CV strategy, base evidence still comes directly from `profile-inventory.md`
+and `application-profile.md`. Retrieval is used only for historical context such
+as similar prior `fit-analysis.md` files, submitted CV summaries, known ATS
+lessons or narrative warnings.
 
 Codex can also read a private local Markdown application profile. That file is
 an answer bank for personal details, recurring form answers, work-authorization
@@ -133,6 +153,10 @@ Urban Mobility Data Platform as the flagship public project.
 This per-job tailoring is part of the current workflow. Future reusable CV
 tracks are only starting points for recurring role families, not a replacement
 for tailoring each application to the actual job request.
+
+After submission, Codex records a `## Submitted CV Summary` in the job's
+`notes.md`. That summary, not the PDF or LaTeX build output, is what the memory
+layer indexes for future CV-strategy retrieval.
 
 ## 6. Review Loop
 
@@ -181,13 +205,15 @@ Before continuing to the next role, Codex performs a lightweight outreach hook.
 For strategically useful roles, it records one `OPP-*` opportunity in
 `applications/outreach-log.md` and adds a short `## Outreach` section to the job
 notes. This hook does not search LinkedIn or draft messages; it only preserves
-enough context for a later daily outreach pass.
+enough context for a later daily outreach pass. The memory index is rebuilt
+after these terminal-state updates.
 
 ## 9. Daily Outreach Loop
 
 The separate `linkedin-outreach-loop` skill reads the outreach log and worked
-application folders, researches public sources for relevant people, ranks all
-sensible contacts and drafts concise LinkedIn messages for manual sending.
+application folders, reads compact memory state, researches public sources for
+relevant people, ranks all sensible contacts and drafts concise LinkedIn
+messages for manual sending.
 
 Contacts receive stable `OUT-*` ids. After the user sends messages manually,
 they can reply with ids such as `scritto OUT-001, OUT-004`; Codex then marks

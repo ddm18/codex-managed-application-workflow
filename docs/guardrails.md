@@ -9,6 +9,8 @@ remains separately human-approved, but that final gate is intentionally
 lightweight when the earlier pre-work gate already accepted the opportunity.
 Manual LinkedIn outreach is tracked separately: Codex may research public
 contacts and draft messages, but sending, connecting and replying stay manual.
+The retrieval layer is also bounded: it may find relevant context, but it does
+not override Trackly or Markdown decisions.
 
 ## Approval Boundary
 
@@ -100,6 +102,23 @@ It may not auto-send, auto-connect, scrape LinkedIn pages, or click LinkedIn
 buttons. This keeps networking human-controlled and avoids turning the workflow
 into spam automation.
 
+## Memory Boundary
+
+The memory index is generated and derived. It may guide Codex toward relevant
+sections, but it is not the source of truth.
+
+- Trackly remains authoritative for live job facts and externally recorded
+  application status.
+- Markdown remains authoritative for local decisions, CV work, outreach state,
+  blockers and reusable profile data.
+- SQLite FTS is used for exact company, Trackly id, heading and keyword lookup.
+- LanceDB semantic search is only a fallback when exact lookup is insufficient.
+- The active queue is read directly from `job-queue.md` and `current-state.md`,
+  not reconstructed from vector search.
+
+If retrieval fails, Codex must continue in degraded mode using Trackly, queue,
+preferences and targeted file reads, and say that memory retrieval is degraded.
+
 ## Private Application Profile
 
 Personal details and recurring form answers live in a private local Markdown
@@ -142,8 +161,8 @@ That distinction matters.
 The fixed base-CV line is:
 
 > CV submitted through a personal Codex workflow after human approval, with
-> automated job discovery, CV tailoring, application submission and manual
-> outreach tracking. See projects for details.
+> automated discovery, retrieval-guided CV tailoring, browser submission and
+> manual outreach tracking. See projects for details.
 
 ## Queue Discipline
 
