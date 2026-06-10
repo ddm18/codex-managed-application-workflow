@@ -84,6 +84,10 @@ It has three responsibilities:
 - `Exact Search`: deterministic lookup by company, id, heading or keyword.
 - `RAG Fallback`: semantic retrieval when exact search is not enough.
 
+The semantic part is rebuilt from local Markdown, not edited by hand. Rebuilds
+reuse cached embeddings for unchanged chunks and sync only changed rows into the
+vector store.
+
 The output of this layer is a context pack, not a database transaction or a new
 source of truth.
 

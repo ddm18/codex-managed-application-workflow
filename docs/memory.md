@@ -207,6 +207,11 @@ not be loaded by default.
     Markdown: SQLite points to the right local sections quickly, while LanceDB
     helps only when the wording is fuzzy or the relevant history is not obvious.
 
+    Embeddings are built incrementally. The vector cache is keyed from the text
+    that is actually embedded: company, role, document type, heading path and
+    chunk text. That means unchanged chunks are reused on rebuilds, while a
+    metadata change that affects retrieval meaning gets a fresh vector.
+
 ??? info "Context Pack And Boundary"
 
     The Context Pack is the output of conditional retrieval. It is not raw
@@ -237,6 +242,7 @@ not be loaded by default.
       company-aliases.yml
       retrieval/
         chunks.sqlite
+        vector-cache.sqlite
         lancedb/
     ```
 
@@ -257,6 +263,10 @@ not be loaded by default.
     ```bash
     /Users/dariodm/Documents/ai-managed-documents/scripts/workflow-memory.sh build
     ```
+
+    Rebuilds refresh SQLite and current state every time. LanceDB is synced
+    incrementally: cached vectors are reused, changed chunks are embedded, stale
+    rows are deleted and only changed rows are upserted.
 
 ??? info "Degraded Mode"
 

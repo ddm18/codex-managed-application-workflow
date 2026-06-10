@@ -27,11 +27,17 @@ applications/
   company-aliases.yml
   retrieval/
     chunks.sqlite
+    vector-cache.sqlite
     lancedb/
 ```
 
 The index is derived. If it is stale or broken, the workflow can continue using
 Trackly, queue files, preferences and targeted file reads.
+
+`vector-cache.sqlite` stores reusable local embeddings keyed by the text that is
+actually embedded: company, role, document type, heading path and chunk text.
+This lets rebuilds reuse unchanged vectors while still refreshing vectors when
+metadata changes affect semantic retrieval.
 
 ## Scripts
 
@@ -69,3 +75,17 @@ Excluded by default:
 - LaTeX build logs and auxiliary files;
 - screenshots and form images;
 - generated submission packets and application-form drafts.
+
+## Embedding Procedure
+
+Semantic retrieval is derived and rebuildable:
+
+1. Markdown sections are chunked into stable local chunks.
+2. SQLite FTS is rebuilt deterministically for exact lookup.
+3. The embedding cache reuses vectors for unchanged embedded text.
+4. FastEmbed creates vectors only for changed chunks.
+5. LanceDB deletes stale rows, adds changed rows and keeps unchanged rows.
+
+The chunk identity and embedding cache key are intentionally separate. Chunk
+identity follows the local source section; the embedding key follows the text
+and metadata sent to the embedding model.
